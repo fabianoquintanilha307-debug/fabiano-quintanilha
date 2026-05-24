@@ -431,9 +431,9 @@ footer{padding:2.5rem 6vw;background:var(--bg);border-top:0.5px solid var(--bord
     <div class="benefits-box">
       <ul class="benefits-list">
         <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="22" y1="12" x2="16" y2="12"/><line x1="2" y1="12" x2="8" y2="12"/></svg> Your creatives start to scale and your content goes viral.</li>
-        <li><svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 0 1 6 6c0 3.5-2.5 5.5-2.5 8H8.5C8.5 13.5 6 11.5 6 8a6 6 0 0 1 6-6z"/><path d="M9 18h6M10 22h4"/></svg> You stop spending hours explaining the obvious — working with someone who already understands digital marketing.</li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 0 1 6 6c0 3.5-2.5 5.5-2.5 8H8.5C8.5 13.5 6 11.5 6 8a6 6 0 0 1 6-6z"/><path d="M9 18h6M10 22h4"/></svg> You stop spending hours explaining the obvious. Now you work with someone who already understands digital marketing.</li>
         <li><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Your campaigns scale with assets that sustain, high retention, your leads become cheaper.</li>
-        <li><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> You gain a partner, not a supplier — someone committed to the results of your business</li>
+        <li><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> You gain a partner, not a supplier, someone committed to the results of your business</li>
         <li><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Generative AI creatives and motion integrated into your strategy, not as cooler videos, but as a performance tool.</li>
         <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> No time zone or location limits. Remote service for operations worldwide</li>
         <li><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Zero project abandonment. Active support throughout production, from brief to final delivery</li>
@@ -516,7 +516,7 @@ footer{padding:2.5rem 6vw;background:var(--bg);border-top:0.5px solid var(--bord
       <div class="guarantee-card guarantee-card--highlight">
         <div class="gc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
         <h3>Investment with real return</h3>
-        <p>Every euro you invest here comes back as attention, authority and sales. This isn't a cost — it's leverage.</p>
+        <p>Every euro you invest here comes back as attention, authority and sales. This isn't a cost. It's leverage.</p>
       </div>
     </div>
     <div class="guarantee-seal">
@@ -546,9 +546,10 @@ footer{padding:2.5rem 6vw;background:var(--bg);border-top:0.5px solid var(--bord
   <div class="section-tag" style="display:block;text-align:center">✦ Prefer to write?</div>
   <h2 class="section-title">Leave a message</h2>
   <p class="section-sub">Fill out the form below and I'll get back to you by email within 24h.</p>
-  <form id="cform" class="cform" action="https://formspree.io/f/xvzlbogo" method="POST">
-    <input type="hidden" name="_subject" value="New message — Fabiano Quintanilha Portfolio">
-    <input type="hidden" name="_language" value="en">
+  <form id="cform" class="cform" name="contato" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/">
+    <input type="hidden" name="form-name" value="contato">
+    <input type="hidden" name="idioma" value="en">
+    <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
     <div class="cform-row">
       <div class="cform-group">
         <label>Name</label>
@@ -647,7 +648,7 @@ document.addEventListener('DOMContentLoaded', function(){
       e.preventDefault();
       var btn = cform.querySelector('.cform-submit');
       btn.disabled = true;
-      fetch(cform.action,{method:'POST',body:new FormData(cform),headers:{'Accept':'application/json'}})
+      fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(cform)).toString()})
       .then(function(r){
         if(r.ok){
           cform.reset();

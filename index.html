@@ -433,7 +433,7 @@ footer{padding:2.5rem 6vw;background:var(--bg);border-top:0.5px solid var(--bord
     <div class="benefits-box">
       <ul class="benefits-list">
         <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="22" y1="12" x2="16" y2="12"/><line x1="2" y1="12" x2="8" y2="12"/></svg> Seus criativos começam a escalar e seus conteúdos viralizam.</li>
-        <li><svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 0 1 6 6c0 3.5-2.5 5.5-2.5 8H8.5C8.5 13.5 6 11.5 6 8a6 6 0 0 1 6-6z"/><path d="M9 18h6M10 22h4"/></svg> Você para de gastar horas explicando o óbvio — trabalha com quem já entende marketing digital.</li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 0 1 6 6c0 3.5-2.5 5.5-2.5 8H8.5C8.5 13.5 6 11.5 6 8a6 6 0 0 1 6-6z"/><path d="M9 18h6M10 22h4"/></svg> Você para de gastar horas explicando o óbvio. Agora trabalha com quem já entende marketing digital.</li>
         <li><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Suas campanhas escalam com ativos que sustentam, retenção alta, seu lead fica mais barato.</li>
         <li><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Você ganha um parceiro, não um fornecedor, alguém comprometido com o resultado do seu negócio</li>
         <li><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Criativos com IA generativa e motion integrados à sua estratégia, não como vídeos mais legais, mas como ferramenta de performance.</li>
@@ -518,7 +518,7 @@ footer{padding:2.5rem 6vw;background:var(--bg);border-top:0.5px solid var(--bord
       <div class="guarantee-card guarantee-card--highlight">
         <div class="gc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
         <h3>Investimento com retorno real</h3>
-        <p>Cada real que você investe aqui volta em forma de atenção, autoridade e vendas. Não é custo — é alavancagem.</p>
+        <p>Cada real que você investe aqui volta em forma de atenção, autoridade e vendas. Não é custo. É alavancagem.</p>
       </div>
     </div>
     <div class="guarantee-seal">
@@ -548,9 +548,10 @@ footer{padding:2.5rem 6vw;background:var(--bg);border-top:0.5px solid var(--bord
   <div class="section-tag" style="display:block;text-align:center">✦ Prefere escrever?</div>
   <h2 class="section-title">Deixa uma mensagem</h2>
   <p class="section-sub">Preencha o formulário abaixo e eu retorno por email em até 24h.</p>
-  <form id="cform" class="cform" action="https://formspree.io/f/xvzlbogo" method="POST">
-    <input type="hidden" name="_subject" value="Nova mensagem — Portfólio Fabiano Quintanilha">
-    <input type="hidden" name="_language" value="pt">
+  <form id="cform" class="cform" name="contato" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/">
+    <input type="hidden" name="form-name" value="contato">
+    <input type="hidden" name="idioma" value="pt">
+    <p style="display:none"><label>Não preencha isto: <input name="bot-field"></label></p>
     <div class="cform-row">
       <div class="cform-group">
         <label>Nome</label>
@@ -649,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function(){
       e.preventDefault();
       var btn = cform.querySelector('.cform-submit');
       btn.disabled = true;
-      fetch(cform.action,{method:'POST',body:new FormData(cform),headers:{'Accept':'application/json'}})
+      fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(cform)).toString()})
       .then(function(r){
         if(r.ok){
           cform.reset();
