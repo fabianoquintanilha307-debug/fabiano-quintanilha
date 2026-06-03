@@ -33,6 +33,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .bio-foot a{color:var(--accent);text-decoration:none}
 .bio-foot a:hover{text-decoration:underline}
 </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJERTD370J"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-LJERTD370J');</script>
+<!-- Microsoft Clarity -->
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wyrebeq6dv");</script>
 </head>
 <body>
   <main class="wrap">
@@ -40,15 +45,15 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="bio-name">Fabiano Quintanilha</div>
     <p class="bio-tag">Video Editor &amp; Digital Marketing</p>
 
-    <a class="bio-link" href="https://www.fabianoquintanilha.com" target="_blank" rel="noopener" aria-label="Acessar meu site">
+    <a class="bio-link" href="https://www.fabianoquintanilha.com" target="_blank" rel="noopener" aria-label="Acessar meu site" onclick="gtag('event','bio_click',{'link_destination':'website'})">
       <img src="bio3.png" alt="Website" width="688" height="384" loading="eager">
     </a>
 
-    <a class="bio-link" href="https://www.linkedin.com/in/fabiano-quintanilha-69a544411/" target="_blank" rel="noopener" aria-label="Conectar no LinkedIn">
+    <a class="bio-link" href="https://www.linkedin.com/in/fabiano-quintanilha-69a544411/" target="_blank" rel="noopener" aria-label="Conectar no LinkedIn" onclick="gtag('event','bio_click',{'link_destination':'linkedin'})">
       <img src="bio2.png" alt="LinkedIn" width="688" height="384" loading="eager">
     </a>
 
-    <a class="bio-link" href="https://wa.me/5531996783130?text=Oi%2C%20cheguei%20pelo%20link%20da%20sua%20bio%20no%20insta." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <a class="bio-link" href="https://wa.me/5531996783130?text=Oi%2C%20cheguei%20pelo%20link%20da%20sua%20bio%20no%20insta." target="_blank" rel="noopener" aria-label="Falar no WhatsApp" onclick="gtag('event','bio_click',{'link_destination':'whatsapp'})">
       <img src="bio.png" alt="WhatsApp" width="688" height="384" loading="eager">
     </a>
 

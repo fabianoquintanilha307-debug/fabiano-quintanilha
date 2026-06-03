@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · QUINTAXS</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080b14;--bg2:#0d1120;--bg3:#131927;--accent:#7b3ff5;--accent2:#a855f7;--gold:#f59e0b;--green:#10b981;--red:#ef4444;--text:#f0eaff;--muted:#8b82a8;--muted2:#4e4869;--border:rgba(123,63,245,.2);--card:rgba(255,255,255,.03);--card-bd:rgba(255,255,255,.07)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:15px;min-height:100vh}
+.screen{display:none}
+.screen.active{display:block}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:50;background:rgba(8,11,20,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.9rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{font-size:.7rem;font-weight:800;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase}
+.nav-badge{background:rgba(123,63,245,.12);border:1px solid var(--border);color:var(--accent2);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2rem}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+
+/* ── LAYOUT ── */
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+.page-title{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.35rem}
+.page-sub{color:var(--muted);font-size:.85rem;margin-bottom:2rem}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--card-bd);border-radius:1.1rem;padding:1.5rem}
+.card+.card{margin-top:1rem}
+
+/* ── GRID ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+@media(max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* ── FORM ELEMENTS ── */
+.field{margin-bottom:1.1rem}
+.label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+.input,.textarea,.select{
+  width:100%;background:var(--bg2);border:1px solid rgba(255,255,255,.1);
+  border-radius:.65rem;padding:.7rem .9rem;
+  font-family:'Poppins',sans-serif;font-size:.88rem;color:var(--text);
+  outline:none;transition:border-color .2s;
+}
+.input:focus,.textarea:focus,.select:focus{border-color:var(--accent)}
+.textarea{resize:vertical;min-height:80px}
+.select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b82a8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center}
+.select option{background:var(--bg2)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.2rem;border-radius:.65rem;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:opacity .2s,transform .2s;text-decoration:none;white-space:nowrap}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 14px rgba(123,63,245,.3)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#fbbf24);color:#0d0a00;box-shadow:0 4px 14px rgba(245,158,11,.3)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid var(--card-bd);color:var(--text)}
+.btn-danger{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#f87171}
+.btn-sm{padding:.4rem .85rem;font-size:.75rem}
+.btn-icon{padding:.5rem;border-radius:.5rem}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .55rem;border-radius:2rem}
+.badge-done{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:#34d399}
+.badge-current{background:rgba(123,63,245,.12);border:1px solid var(--border);color:var(--accent2)}
+.badge-waiting{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:#fbbf24}
+.badge-upcoming{background:rgba(255,255,255,.05);border:1px solid var(--card-bd);color:var(--muted)}
+
+/* ── ITEM CARDS (dashboard) ── */
+.item-card{background:var(--card);border:1px solid var(--card-bd);border-radius:1rem;padding:1.25rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:border-color .2s}
+.item-card:hover{border-color:var(--border)}
+.item-card+.item-card{margin-top:.65rem}
+.item-info{flex:1;min-width:0}
+.item-client{font-weight:700;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-meta{font-size:.75rem;color:var(--muted);margin-top:.15rem}
+.item-url{font-size:.7rem;color:var(--accent2);margin-top:.2rem;font-family:monospace}
+.item-actions{display:flex;gap:.5rem;flex-shrink:0}
+
+/* ── SECTION TITLE ── */
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.section-hd h2{font-size:1rem;font-weight:700}
+
+/* ── STEPS (roadmap editor) ── */
+.step-item{background:var(--bg2);border:1px solid var(--card-bd);border-radius:.85rem;padding:1rem 1.1rem;margin-bottom:.65rem;position:relative}
+.step-item-hd{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.75rem;flex-wrap:wrap}
+.step-num{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);background:rgba(255,255,255,.05);padding:.15rem .48rem;border-radius:.3rem}
+.step-controls{display:flex;gap:.35rem}
+
+/* ── PRICING BOXES (proposal editor) ── */
+.box-item{background:var(--bg2);border:1px solid var(--card-bd);border-radius:.85rem;padding:1.1rem 1.25rem;margin-bottom:.75rem}
+.box-hd{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.85rem}
+.box-label{font-size:.78rem;font-weight:700;color:var(--accent2)}
+
+/* ── COSTS TABLE EDITOR ── */
+.cost-row{display:grid;grid-template-columns:1fr 1.5fr .8fr auto;gap:.5rem;margin-bottom:.5rem;align-items:center}
+@media(max-width:600px){.cost-row{grid-template-columns:1fr auto}}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;background:var(--bg3);border:1px solid var(--card-bd);border-radius:.85rem;padding:.8rem 1.2rem;font-size:.82rem;box-shadow:0 8px 32px rgba(0,0,0,.4);transform:translateY(20px);opacity:0;transition:all .3s;max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:rgba(16,185,129,.4);color:#34d399}
+.toast.error{border-color:rgba(239,68,68,.4);color:#f87171}
+
+/* ── LOGIN ── */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.login-box{width:100%;max-width:380px;background:var(--card);border:1px solid var(--card-bd);border-radius:1.5rem;padding:2.5rem 2rem}
+.login-logo{font-size:.72rem;font-weight:800;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;text-align:center;margin-bottom:.5rem}
+.login-title{font-size:1.3rem;font-weight:800;text-align:center;margin-bottom:.35rem}
+.login-sub{font-size:.78rem;color:var(--muted);text-align:center;margin-bottom:2rem}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--card-bd);margin:1.5rem 0}
+
+/* ── TAG ── */
+.tag{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem;border-radius:.4rem}
+.tag-proposal{background:rgba(123,63,245,.12);color:var(--accent2)}
+.tag-roadmap{background:rgba(245,158,11,.1);color:#fbbf24}
+
+/* ── SPINNER ── */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── EMPTY STATE ── */
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.88rem}
+.empty svg{opacity:.3;margin-bottom:.75rem;display:block;margin-left:auto;margin-right:auto}
+
+/* ── ITEMS LIST EDITOR (deliverables) ── */
+.items-list{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.5rem}
+.item-row{display:flex;gap:.4rem;align-items:center}
+.item-row .input{flex:1}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══════════════════════════════════════════ -->
+<div id="screen-login" class="screen active">
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-logo">QUINTAXS</div>
+      <h1 class="login-title">Painel Admin</h1>
+      <p class="login-sub" id="login-sub">Propostas · Roadmaps</p>
+      <div class="field">
+        <label class="label" for="pw-input">Senha</label>
+        <input id="pw-input" type="password" class="input" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center" id="btn-login">Entrar</button>
+      <p id="login-err" style="color:#f87171;font-size:.75rem;margin-top:.75rem;text-align:center;display:none">Senha incorreta.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SETUP ═══════════════════════════════════════════ -->
+<div id="screen-setup" class="screen">
+  <div class="login-wrap">
+    <div class="login-box" style="max-width:440px">
+      <div class="login-logo">QUINTAXS</div>
+      <h1 class="login-title">Configuração inicial</h1>
+      <p class="login-sub">Faça isso uma única vez</p>
+      <div class="field">
+        <label class="label">Senha do painel</label>
+        <input id="setup-pw" type="password" class="input" placeholder="Crie uma senha segura">
+      </div>
+      <div class="field">
+        <label class="label">GitHub Token (ghp_...)</label>
+        <input id="setup-token" type="password" class="input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        <p style="font-size:.72rem;color:var(--muted);margin-top:.4rem">Token clássico com escopo <code>repo</code>. <a href="https://github.com/settings/tokens/new?scopes=repo&description=Netlify+Admin" target="_blank" style="color:var(--accent2)">Gerar agora →</a></p>
+      </div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center" id="btn-setup">Salvar e entrar</button>
+      <p id="setup-err" style="color:#f87171;font-size:.75rem;margin-top:.75rem;text-align:center;display:none"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ════════════════════════════════════════ -->
+<div id="screen-dashboard" class="screen">
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.7rem">
+      <span class="nav-logo">QUINTAXS</span>
+      <span class="nav-badge">Admin</span>
+    </div>
+    <div class="nav-right">
+      <button class="btn btn-ghost btn-sm" id="btn-settings">⚙ Configurações</button>
+      <button class="btn btn-ghost btn-sm" id="btn-logout">Sair</button>
+    </div>
+  </nav>
+  <div class="container">
+    <h1 class="page-title">Dashboard</h1>
+    <p class="page-sub" id="dash-status">Carregando…</p>
+
+    <div class="section-hd">
+      <h2>Propostas Comerciais</h2>
+      <button class="btn btn-primary btn-sm" id="btn-new-proposal">+ Nova Proposta</button>
+    </div>
+    <div id="list-proposals"><div class="empty"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Nenhuma proposta ainda.</div></div>
+
+    <div class="divider"></div>
+
+    <div class="section-hd">
+      <h2>Roadmaps de Projeto</h2>
+      <button class="btn btn-gold btn-sm" id="btn-new-roadmap">+ Novo Roadmap</button>
+    </div>
+    <div id="list-roadmaps"><div class="empty"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Nenhum roadmap ainda.</div></div>
+  </div>
+</div>
+
+<!-- ══ PROPOSAL EDITOR ══════════════════════════════════ -->
+<div id="screen-proposal" class="screen">
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.7rem">
+      <button class="btn btn-ghost btn-sm" id="prop-back">← Voltar</button>
+      <span class="nav-logo" style="font-size:.65rem">Proposta Comercial</span>
+    </div>
+    <div class="nav-right">
+      <button class="btn btn-primary" id="btn-save-proposal"><span id="prop-save-label">Publicar</span></button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="card">
+      <h2 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem">Informações do cliente</h2>
+      <div class="grid-2">
+        <div class="field"><label class="label">Nome do cliente *</label><input id="p-cliente" class="input" placeholder="Ex: Érica Costa"></div>
+        <div class="field"><label class="label">Tipo de serviço *</label><input id="p-servico" class="input" placeholder="Ex: Gestão de Conteúdo para Instagram"></div>
+      </div>
+      <div class="field"><label class="label">Tagline do projeto</label><input id="p-tagline" class="input" placeholder="Ex: Conteúdo que conecta e converte"></div>
+      <div class="grid-2">
+        <div class="field"><label class="label">Data da proposta</label><input id="p-data" class="input" type="date"></div>
+        <div class="field"><label class="label">Válida até</label><input id="p-validade" class="input" type="date"></div>
+      </div>
+      <div class="field"><label class="label">Slug da URL (sem espaços, sem acento) *</label><input id="p-slug" class="input" placeholder="Ex: erica → fabianoquintanilha.com/propostas/erica"></div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <div class="section-hd">
+        <h2 style="font-size:1rem;font-weight:700">Custos do projeto</h2>
+        <button class="btn btn-ghost btn-sm" id="btn-add-cost">+ Linha</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1.5fr .8fr auto;gap:.5rem;margin-bottom:.5rem">
+        <span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Item</span>
+        <span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Descrição</span>
+        <span style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Valor</span>
+        <span></span>
+      </div>
+      <div id="costs-list"></div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <div class="section-hd">
+        <h2 style="font-size:1rem;font-weight:700">Pacotes / Entregáveis</h2>
+        <button class="btn btn-ghost btn-sm" id="btn-add-box">+ Pacote</button>
+      </div>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.1rem">O pacote do meio é automaticamente destacado como "Mais escolhido".</p>
+      <div id="boxes-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ROADMAP EDITOR ═══════════════════════════════════ -->
+<div id="screen-roadmap" class="screen">
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.7rem">
+      <button class="btn btn-ghost btn-sm" id="road-back">← Voltar</button>
+      <span class="nav-logo" style="font-size:.65rem">Roadmap do Projeto</span>
+    </div>
+    <div class="nav-right">
+      <button class="btn btn-gold" id="btn-save-roadmap"><span id="road-save-label">Publicar</span></button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="card">
+      <h2 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem">Informações do projeto</h2>
+      <div class="grid-2">
+        <div class="field"><label class="label">Nome do cliente *</label><input id="r-cliente" class="input" placeholder="Ex: Érica Costa"></div>
+        <div class="field"><label class="label">Descrição do projeto *</label><input id="r-projeto" class="input" placeholder="Ex: Gestão de Conteúdo para Instagram"></div>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label class="label">Data de início</label><input id="r-data" class="input" type="date"></div>
+        <div class="field"><label class="label">Slug da URL *</label><input id="r-slug" class="input" placeholder="Ex: erica-roadmap"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <div class="section-hd">
+        <h2 style="font-size:1rem;font-weight:700">Etapas do projeto</h2>
+        <button class="btn btn-ghost btn-sm" id="btn-add-step">+ Etapa</button>
+      </div>
+      <div id="steps-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SETTINGS ══════════════════════════════════════════ -->
+<div id="screen-settings" class="screen">
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:.7rem">
+      <button class="btn btn-ghost btn-sm" id="settings-back">← Voltar</button>
+      <span class="nav-logo" style="font-size:.65rem">Configurações</span>
+    </div>
+  </nav>
+  <div class="container" style="max-width:500px">
+    <div class="card">
+      <h2 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem">GitHub Token</h2>
+      <div class="field"><label class="label">Token atual</label><input id="cfg-token" type="password" class="input"></div>
+      <button class="btn btn-primary btn-sm" id="btn-save-token">Salvar token</button>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <h2 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem">Alterar senha</h2>
+      <div class="field"><label class="label">Nova senha</label><input id="cfg-pw" type="password" class="input"></div>
+      <button class="btn btn-ghost btn-sm" id="btn-save-pw">Alterar senha</button>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <h2 style="font-size:1rem;font-weight:700;margin-bottom:.5rem">Limpar dados locais</h2>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:1rem">Remove token e senha salvos neste browser.</p>
+      <button class="btn btn-danger btn-sm" id="btn-clear">Limpar e sair</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CONFIG
+   ═══════════════════════════════════════════════════════ */
+const GH_OWNER  = 'fabianoquintanilha307-debug';
+const GH_REPO   = 'fabiano-quintanilha';
+const GH_BRANCH = 'master';
+
+/* ═══════════════════════════════════════════════════════
+   UTILS
+   ═══════════════════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
+
+function showToast(msg, type = 'success') {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(`screen-${name}`).classList.add('active');
+}
+
+async function hashPw(pw) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function todayStr() {
+  return new Date().toISOString().slice(0,10);
+}
+function dateToDisplay(iso) {
+  if (!iso) return '';
+  const [y,m,d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+function slugify(str) {
+  return str.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+/* ═══════════════════════════════════════════════════════
+   STORAGE
+   ═══════════════════════════════════════════════════════ */
+const Store = {
+  get token()  { return localStorage.getItem('qx_token') || ''; },
+  set token(v) { localStorage.setItem('qx_token', v); },
+  get pwHash() { return localStorage.getItem('qx_pw') || ''; },
+  set pwHash(v){ localStorage.setItem('qx_pw', v); },
+  clear()      { localStorage.removeItem('qx_token'); localStorage.removeItem('qx_pw'); }
+};
+
+/* ═══════════════════════════════════════════════════════
+   GITHUB API
+   ═══════════════════════════════════════════════════════ */
+async function ghRequest(method, path, body) {
+  const res = await fetch(
+    `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`,
+    {
+      method,
+      headers: {
+        'Authorization': `token ${Store.token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: body ? JSON.stringify(body) : undefined
+    }
+  );
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e.message || `GitHub ${res.status}`);
+  }
+  return res.json();
+}
+
+function b64enc(str) { return btoa(unescape(encodeURIComponent(str))); }
+function b64dec(str) { return decodeURIComponent(escape(atob(str.replace(/\n/g,'')))); }
+
+async function ghRead(path) {
+  const data = await ghRequest('GET', path);
+  if (!data) return { content: null, sha: null };
+  return { content: b64dec(data.content), sha: data.sha };
+}
+
+async function ghWrite(path, content, message) {
+  const { sha } = await ghRead(path);
+  const body = { message, content: b64enc(content), branch: GH_BRANCH };
+  if (sha) body.sha = sha;
+  return ghRequest('PUT', path, body);
+}
+
+async function ghDelete(path, message) {
+  const { sha } = await ghRead(path);
+  if (!sha) return;
+  return ghRequest('DELETE', path, { message, sha, branch: GH_BRANCH });
+}
+
+/* ═══════════════════════════════════════════════════════
+   MANIFEST
+   ═══════════════════════════════════════════════════════ */
+let MANIFEST = { proposals: [], roadmaps: [] };
+
+async function loadManifest() {
+  const { content } = await ghRead('propostas/_manifest.json');
+  MANIFEST = content ? JSON.parse(content) : { proposals: [], roadmaps: [] };
+}
+
+async function saveManifest(msg) {
+  await ghWrite('propostas/_manifest.json', JSON.stringify(MANIFEST, null, 2), msg || 'Update manifest');
+}
+
+/* ═══════════════════════════════════════════════════════
+   HTML GENERATORS
+   ═══════════════════════════════════════════════════════ */
+function generateProposalHTML(d) {
+  const custosRows = (d.custos||[]).map(c =>
+    `<tr><td>${c.item}</td><td>${c.desc}</td><td>${c.valor}</td></tr>`
+  ).join('\n        ');
+
+  const boxesHTML = (d.boxes||[]).map((box, i) => {
+    const isFeatured = d.boxes.length >= 2 && i === Math.floor((d.boxes.length - 1) / 2);
+    const isLast     = i === d.boxes.length - 1 && d.boxes.length > 1;
+    const badgeHtml  = isFeatured
+      ? `<span class="pricing-badge badge-featured"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Mais escolhido</span>`
+      : isLast
+      ? `<span class="pricing-badge badge-value">Melhor custo-benefício</span>`
+      : '';
+    const itemsHtml = (box.itens||[]).map(it => `<li>${it}</li>`).join('\n        ');
+    const wppMsg = encodeURIComponent(`Olá Fabiano, aceito a proposta — ${box.nome}`);
+    const cardCls = isFeatured ? 'pricing-card featured' : 'pricing-card';
+    const ctaCls  = isFeatured ? 'cta-featured' : 'cta-standard';
+    return `
+    <div class="${cardCls}">
+      ${badgeHtml}
+      <p class="pricing-name">${box.nome}</p>
+      <p class="pricing-price">${box.valor}</p>
+      <p class="pricing-pgto">${box.pgto}</p>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-list">${itemsHtml}</ul>
+      <a class="pricing-cta ${ctaCls}" href="https://wa.me/5531996783130?text=${wppMsg}" target="_blank" rel="noopener">Quero esta proposta</a>
+    </div>`;
+  }).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta · ${d.cliente} · Fabiano Quintanilha</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJERTD370J"><\/script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-LJERTD370J');<\/script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wyrebeq6dv");<\/script>
+<style>
+:root{--bg:#080b14;--bg2:#0d1120;--accent:#7b3ff5;--accent2:#a855f7;--gold:#f59e0b;--gold2:#fbbf24;--text:#f0eaff;--muted:#8b82a8;--muted2:#6b6484;--border:rgba(123,63,245,.2);--border2:rgba(123,63,245,.4);--card-bg:rgba(255,255,255,.03);--card-bd:rgba(255,255,255,.07)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{line-height:1.2;font-weight:700}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem 1.5rem 7rem;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(123,63,245,.28),transparent 70%),radial-gradient(ellipse 55% 50% at 85% 85%,rgba(168,85,247,.14),transparent 60%)}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(123,63,245,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(123,63,245,.055) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 0%,transparent 80%)}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:1}
+.orb-1{width:420px;height:420px;background:rgba(123,63,245,.16);top:-120px;left:-120px;animation:float1 9s ease-in-out infinite}
+.orb-2{width:320px;height:320px;background:rgba(245,158,11,.09);bottom:60px;right:-60px;animation:float2 11s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(28px,18px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-22px,-28px)}}
+.hero-nav{position:absolute;top:2rem;left:2rem;display:flex;align-items:center;gap:.85rem;z-index:2}
+.hero-logo{font-size:.72rem;font-weight:800;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase}
+.hero-badge{background:rgba(123,63,245,.15);border:1px solid var(--border2);color:var(--accent2);font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .75rem;border-radius:2rem}
+.hero-content{position:relative;z-index:2;max-width:820px}
+.hero-label{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+.hero-title{font-size:clamp(3rem,8vw,6.2rem);font-weight:900;letter-spacing:-.035em;line-height:1.04;margin-bottom:1.4rem;background:linear-gradient(135deg,#fff 0%,#d4b8ff 40%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-service{font-size:clamp(.95rem,2.4vw,1.35rem);font-weight:500;opacity:.88;margin-bottom:.65rem}
+.hero-tagline{font-size:clamp(.88rem,1.7vw,1.05rem);color:var(--muted);font-style:italic;margin-bottom:2.5rem}
+.scroll-hint{position:absolute;bottom:4.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.35rem;z-index:2;opacity:.35;animation:bounce 2.2s ease-in-out infinite}
+.scroll-hint span{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+.hero-footer{position:absolute;bottom:0;left:0;right:0;padding:.9rem 2rem;background:rgba(123,63,245,.07);border-top:1px solid var(--border);display:flex;justify-content:center;gap:2rem;font-size:.75rem;color:var(--muted);z-index:2;flex-wrap:wrap}
+.hero-footer span{display:flex;align-items:center;gap:.4rem}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+.section{padding:6rem 1.5rem;max-width:1100px;margin:0 auto}
+.section-label{font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent2);margin-bottom:.7rem}
+.section-title{font-size:clamp(1.75rem,3.8vw,2.75rem);font-weight:800;margin-bottom:.7rem;letter-spacing:-.025em}
+.section-subtitle{color:var(--muted);font-size:.97rem;max-width:540px;margin-bottom:3rem}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem}
+.why-card{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:1.25rem;padding:1.75rem 1.5rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.why-card:hover{border-color:var(--border2);transform:translateY(-4px)}.why-card:hover::before{transform:scaleX(1)}
+.why-icon{width:44px;height:44px;background:rgba(123,63,245,.12);border:1px solid var(--border);border-radius:.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
+.why-card h3{font-size:.92rem;font-weight:700;margin-bottom:.35rem}.why-card p{font-size:.8rem;color:var(--muted);line-height:1.55}
+.costs-wrap{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:1.25rem;overflow:hidden;margin-bottom:1rem}
+.costs-table{width:100%;border-collapse:collapse}
+.costs-table thead tr{background:rgba(123,63,245,.1);border-bottom:1px solid var(--border)}
+.costs-table th{padding:1rem 1.5rem;text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)}
+.costs-table td{padding:.95rem 1.5rem;font-size:.88rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.costs-table tbody tr:last-child td{border-bottom:none}.costs-table td:first-child{font-weight:600}.costs-table td:last-child{color:var(--gold2);font-weight:600;text-align:right}
+.costs-note{font-size:.72rem;color:var(--muted2);padding-left:.25rem}
+.pricing-grid{display:grid;grid-template-columns:repeat(${d.boxes.length},1fr);gap:1.25rem;align-items:start}
+@media(max-width:768px){.pricing-grid{grid-template-columns:1fr}.pricing-card.featured{order:-1;transform:none}.pricing-card.featured:hover{transform:translateY(-6px)}}
+.pricing-card{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:1.5rem;padding:2rem 1.75rem;position:relative;transition:transform .3s;display:flex;flex-direction:column}
+.pricing-card:hover{transform:translateY(-6px)}
+.pricing-card.featured{background:linear-gradient(145deg,rgba(123,63,245,.13),rgba(168,85,247,.08));border-color:var(--accent);box-shadow:0 0 40px rgba(123,63,245,.26),0 20px 60px rgba(0,0,0,.4);transform:scale(1.035);z-index:2}
+.pricing-card.featured:hover{transform:scale(1.035) translateY(-6px)}
+.pricing-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .75rem;border-radius:2rem;margin-bottom:1.2rem;align-self:flex-start}
+.badge-featured{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 12px rgba(123,63,245,.4)}
+.badge-value{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.28);color:var(--gold2)}
+.pricing-name{font-size:1.08rem;font-weight:700;margin-bottom:1.2rem}
+.pricing-price{font-size:clamp(1.9rem,3.8vw,2.7rem);font-weight:900;letter-spacing:-.03em;line-height:1;margin-bottom:.35rem}
+.pricing-card.featured .pricing-price{background:linear-gradient(135deg,#fff,#d4b8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pricing-pgto{font-size:.76rem;color:var(--muted);margin-bottom:1.4rem}
+.pricing-divider{height:1px;background:var(--card-bd);margin-bottom:1.4rem}.pricing-card.featured .pricing-divider{background:var(--border)}
+.pricing-list{list-style:none;margin-bottom:2rem;display:flex;flex-direction:column;gap:.65rem;flex:1}
+.pricing-list li{display:flex;align-items:flex-start;gap:.55rem;font-size:.83rem;opacity:.88}
+.pricing-list li::before{content:'';display:block;width:18px;height:18px;min-width:18px;background:rgba(123,63,245,.15);border:1px solid var(--border2);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23a855f7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:10px;margin-top:2px}
+.pricing-cta{display:block;width:100%;padding:.88rem 1.5rem;border-radius:.85rem;font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,opacity .2s;letter-spacing:.02em}
+.pricing-cta:hover{transform:translateY(-2px);opacity:.9}
+.cta-standard{background:rgba(123,63,245,.12);border:1px solid var(--border2);color:var(--text)}.cta-standard:hover{background:rgba(123,63,245,.22)}
+.cta-featured{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0d0a00;box-shadow:0 6px 24px rgba(245,158,11,.32)}.cta-featured:hover{box-shadow:0 10px 32px rgba(245,158,11,.48)}
+.footer-section{text-align:center;padding:5rem 1.5rem 4rem;position:relative;overflow:hidden}
+.footer-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(123,63,245,.1),transparent 70%);pointer-events:none}
+.footer-cta-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:.7rem;position:relative}
+.footer-cta-sub{color:var(--muted);margin-bottom:2.4rem;position:relative}
+.wpp-btn{display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:#fff;font-family:'Poppins',sans-serif;font-size:.93rem;font-weight:700;text-decoration:none;padding:.88rem 2rem;border-radius:3rem;box-shadow:0 6px 24px rgba(37,211,102,.36);transition:transform .2s,box-shadow .2s;position:relative}
+.wpp-btn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(37,211,102,.52)}
+.footer-copy{margin-top:3rem;font-size:.73rem;color:var(--muted2);position:relative}.footer-copy a{color:var(--accent2);text-decoration:none}
+.footer-confidential{margin-top:.45rem;font-size:.68rem;color:var(--muted2);opacity:.55;font-style:italic;position:relative}
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(max-width:640px){.hero-nav{top:1.2rem;left:1.2rem}.hero-footer{gap:1rem;font-size:.68rem}.why-grid{grid-template-columns:1fr 1fr}}
+@media print{body{background:#fff;color:#000}.hero{min-height:auto;background:#f8f4ff;padding:3rem 2rem 4rem}.hero::before,.hero::after,.orb,.scroll-hint{display:none}.hero-title{-webkit-text-fill-color:#4c1d95;background:none}.section{padding:3rem 1rem}.why-card,.pricing-card,.costs-wrap{border:1px solid #e5e7eb;background:#fff;box-shadow:none;opacity:1!important}.pricing-card.featured{border:2px solid #7b3ff5;transform:none}.pricing-price{-webkit-text-fill-color:#4c1d95;background:none}.pricing-cta,.wpp-btn{display:none}.divider{background:#e5e7eb}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div>
+  <nav class="hero-nav"><span class="hero-logo">QUINTAXS</span><span class="hero-badge">Proposta Comercial</span></nav>
+  <div class="hero-content">
+    <p class="hero-label">Exclusivamente preparada para</p>
+    <h1 class="hero-title">Para ${d.cliente}</h1>
+    <p class="hero-service">${d.servico}</p>
+    <p class="hero-tagline">${d.tagline}</p>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span>Rolar para ver</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+  <div class="hero-footer">
+    <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Emitida em ${dateToDisplay(d.data)}</span>
+    <span>·</span>
+    <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Válida até ${dateToDisplay(d.validade)}</span>
+    <span>·</span><span>fabianoquintanilha.com</span>
+  </div>
+</section>
+<div class="divider"></div>
+<section class="section fade-in">
+  <p class="section-label">Diferenciais</p>
+  <h2 class="section-title">Por que este projeto<br>vai funcionar</h2>
+  <p class="section-subtitle">Mais do que execução — uma parceria focada em resultado real para o seu negócio.</p>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Estratégia orientada a resultado</h3><p>Não é só edição — é conteúdo produzido para converter e gerar retorno mensurável.</p></div>
+    <div class="why-card"><div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>Experiência com tráfego pago</h3><p>Criativos feitos para performar em anúncios — entendo o que o algoritmo quer ver.</p></div>
+    <div class="why-card"><div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Entrega consistente</h3><p>Compromisso real com prazo e qualidade — sem surpresas, sem atraso.</p></div>
+    <div class="why-card"><div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Visão de marketing</h3><p>Entendo o negócio por trás da câmera — cada peça tem propósito estratégico.</p></div>
+  </div>
+</section>
+<div class="divider"></div>
+<section class="section fade-in">
+  <p class="section-label">Transparência</p>
+  <h2 class="section-title">Estrutura de custos<br>do projeto</h2>
+  <p class="section-subtitle">Itens necessários para a execução, apresentados com total transparência.</p>
+  <div class="costs-wrap"><table class="costs-table"><thead><tr><th>Item</th><th>Descrição</th><th style="text-align:right">Valor</th></tr></thead><tbody>${custosRows}</tbody></table></div>
+  <p class="costs-note">* Assinaturas cobradas separadamente do fee de produção.</p>
+</section>
+<div class="divider"></div>
+<section class="section fade-in">
+  <p class="section-label">Proposta de valor</p>
+  <h2 class="section-title">Escolha o formato ideal<br>para o seu negócio</h2>
+  <p class="section-subtitle">Opções pensadas para diferentes estágios e objetivos.</p>
+  <div class="pricing-grid">${boxesHTML}</div>
+</section>
+<div class="divider"></div>
+<footer class="footer-section fade-in">
+  <h2 class="footer-cta-title">Alguma dúvida?<br>Vamos conversar.</h2>
+  <p class="footer-cta-sub">Estou disponível para alinhar qualquer detalhe antes da sua decisão.</p>
+  <a class="wpp-btn" href="https://wa.me/5531996783130?text=Ol%C3%A1+Fabiano%2C+tenho+uma+d%C3%BAvida+sobre+a+proposta." target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Falar no WhatsApp</a>
+  <p class="footer-copy">© 2026 Fabiano Quintanilha · <a href="https://www.fabianoquintanilha.com" target="_blank" rel="noopener">fabianoquintanilha.com</a></p>
+  <p class="footer-confidential">Esta proposta é confidencial e foi elaborada exclusivamente para ${d.cliente}.</p>
+</footer>
+<script>const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.08});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));<\/script>
+</body></html>`;
+}
+
+function generateRoadmapHTML(d) {
+  const stepsJSON = JSON.stringify(d.steps, null, 2);
+  const done = d.steps.filter(s => s.status === 'done').length;
+  const total = d.steps.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const progress = `${done} de ${total} etapas concluídas`;
+
+  // Inline the full roadmap template with data filled in
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap · ${d.cliente} · Fabiano Quintanilha</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJERTD370J"><\/script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-LJERTD370J');<\/script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wyrebeq6dv");<\/script>
+<style>
+:root{--bg:#080b14;--bg2:#0d1120;--accent:#7b3ff5;--accent2:#a855f7;--gold:#f59e0b;--gold2:#fbbf24;--green:#10b981;--green2:#34d399;--text:#f0eaff;--muted:#8b82a8;--muted2:#4e4869;--border:rgba(123,63,245,.2);--border2:rgba(123,63,245,.4);--card-bg:rgba(255,255,255,.03);--card-bd:rgba(255,255,255,.07)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;padding-bottom:82px}
+.site-header{position:sticky;top:0;z-index:50;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;background:rgba(8,11,20,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.site-header::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 250% at 50% 0%,rgba(123,63,245,.08),transparent 70%)}
+.hd-brand{display:flex;align-items:center;gap:.7rem;position:relative;z-index:1}
+.hd-logo{font-size:.7rem;font-weight:800;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase}
+.hd-badge{background:rgba(123,63,245,.15);border:1px solid var(--border2);color:var(--accent2);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:2rem}
+.hd-meta{display:flex;flex-direction:column;align-items:flex-end;gap:.1rem;position:relative;z-index:1}
+.hd-client{font-size:1rem;font-weight:800;letter-spacing:-.02em;background:linear-gradient(135deg,#fff,#d4b8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hd-project{font-size:.75rem;color:var(--muted)}.hd-date{font-size:.65rem;color:var(--muted2)}
+.progress-section{padding:1.4rem 2rem 1.6rem;background:var(--bg2);border-bottom:1px solid var(--border)}
+.progress-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.progress-label{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2)}
+.progress-text{font-size:.75rem;color:var(--muted);font-weight:500}
+.progress-track{width:100%;height:10px;background:rgba(255,255,255,.05);border-radius:99px;border:1px solid var(--border);overflow:hidden}
+.progress-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2) 55%,var(--gold));transition:width 1.5s cubic-bezier(.16,1,.3,1);position:relative}
+.progress-fill::after{content:'';position:absolute;inset:0;border-radius:99px;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.28) 50%,transparent 100%);animation:shimmer 2.2s ease-in-out infinite}
+@keyframes shimmer{0%{transform:translateX(-200%)}100%{transform:translateX(200%)}}
+.progress-legend{display:flex;gap:1.5rem;margin-top:.9rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:var(--muted)}
+.legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.l-done{background:var(--green)}.l-current{background:var(--accent2)}.l-waiting{background:var(--gold)}.l-upcoming{background:var(--muted2)}
+.timeline-wrap{max-width:700px;margin:0 auto;padding:2.5rem 1.5rem 2rem}
+.step-row{display:flex;gap:0;opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.step-row.visible{opacity:1;transform:translateY(0)}
+.step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:52px}
+.step-dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:2;transition:all .3s}
+.step-dot svg{display:block}
+.step-dot.done{background:rgba(16,185,129,.14);border:2px solid rgba(16,185,129,.5);color:var(--green2)}
+.step-dot.current{background:rgba(123,63,245,.22);border:2px solid var(--accent2);color:var(--accent2);animation:pulse-purple 2.6s ease-in-out infinite}
+.step-dot.waiting-client{background:rgba(245,158,11,.16);border:2px solid rgba(245,158,11,.65);color:var(--gold2);animation:pulse-gold 2.6s ease-in-out infinite}
+.step-dot.upcoming{background:rgba(255,255,255,.03);border:2px solid var(--muted2);color:var(--muted2)}
+@keyframes pulse-purple{0%,100%{box-shadow:0 0 0 0 rgba(123,63,245,.45)}50%{box-shadow:0 0 0 10px rgba(123,63,245,0)}}
+@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}50%{box-shadow:0 0 0 10px rgba(245,158,11,0)}}
+.step-line{width:2px;flex:1;min-height:20px}
+.done-ln{background:linear-gradient(to bottom,rgba(16,185,129,.45),rgba(123,63,245,.3))}.current-ln{background:linear-gradient(to bottom,var(--accent),rgba(123,63,245,.18))}.waiting-ln{background:linear-gradient(to bottom,var(--gold),rgba(255,255,255,.08))}.upcoming-ln{background:rgba(255,255,255,.06)}.last-ln{display:none}
+.step-card-wrap{flex:1;padding:0 0 2.5rem 1.25rem}
+.step-card{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:1.25rem;padding:1.4rem 1.5rem;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.step-card.done{opacity:.7}.step-card.done::before{background:linear-gradient(90deg,rgba(16,185,129,.7),rgba(16,185,129,.15))}
+.step-card.current{border-color:var(--accent);background:linear-gradient(145deg,rgba(123,63,245,.1),rgba(168,85,247,.05));box-shadow:0 0 36px rgba(123,63,245,.18),0 8px 32px rgba(0,0,0,.35)}.step-card.current::before{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.step-card.waiting-client{border-color:rgba(245,158,11,.45);background:linear-gradient(145deg,rgba(245,158,11,.07),transparent);box-shadow:0 0 24px rgba(245,158,11,.12)}.step-card.waiting-client::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.step-card.upcoming{opacity:.45}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.45rem;flex-wrap:wrap}
+.card-title-group{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.card-num{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);background:rgba(255,255,255,.05);padding:.16rem .48rem;border-radius:.3rem;flex-shrink:0}
+.card-title{font-size:.97rem;font-weight:700;letter-spacing:-.01em}
+.card-tag{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2rem;white-space:nowrap}
+.tag-client{background:rgba(245,158,11,.13);border:1px solid rgba(245,158,11,.35);color:var(--gold2)}
+.tag-fabiano{background:rgba(123,63,245,.13);border:1px solid var(--border);color:var(--accent2)}
+.status-pill{display:inline-flex;align-items:center;gap:.38rem;font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.s-done{color:var(--green2)}.s-current{color:var(--accent2)}.s-waiting{color:var(--gold2)}.s-upcoming{color:var(--muted2)}
+.live-dot{width:6px;height:6px;border-radius:50%;animation:blink 1.6s ease-in-out infinite}
+.live-dot.purple{background:var(--accent2)}.live-dot.amber{background:var(--gold2)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.card-desc{font-size:.82rem;color:var(--muted);line-height:1.55;margin:.5rem 0 .7rem}
+.card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem}
+.card-date{display:flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--muted2)}
+.card-date svg{opacity:.45}
+.action-box{margin-top:.85rem;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.22);border-radius:.85rem;padding:.8rem 1rem;display:flex;align-items:flex-start;gap:.7rem}
+.action-box-icon{color:var(--gold);flex-shrink:0;margin-top:1px}
+.action-box p{font-size:.76rem;color:var(--gold2);line-height:1.5;font-weight:500}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,11,20,.93);backdrop-filter:blur(18px);border-top:1px solid var(--border);padding:.85rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.bar-info{line-height:1.25}.bar-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)}
+.bar-step{font-size:.88rem;font-weight:700}
+.wpp-btn{display:inline-flex;align-items:center;gap:.5rem;background:#25D366;color:#fff;font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:700;text-decoration:none;padding:.65rem 1.3rem;border-radius:2rem;box-shadow:0 4px 14px rgba(37,211,102,.3);transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.wpp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,211,102,.5)}
+@media(max-width:600px){.site-header{padding:1rem 1.2rem}.progress-section{padding:1.1rem 1.2rem 1.3rem}.timeline-wrap{padding:1.75rem .9rem 1.5rem}.step-left{width:40px}.step-dot{width:38px;height:38px}.step-card-wrap{padding:0 0 2rem .9rem}.bottom-bar{padding:.75rem 1.2rem}}
+@media print{body{background:#fff;color:#000;padding-bottom:0}.site-header{position:static;background:#f5f3ff;backdrop-filter:none}.hd-client{-webkit-text-fill-color:#4c1d95;background:none}.step-row{opacity:1!important;transform:none!important}.step-card{border:1px solid #e5e7eb;background:#fff!important;box-shadow:none!important;opacity:1!important}.step-dot{animation:none!important;box-shadow:none!important}.bottom-bar,.wpp-btn{display:none}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hd-brand"><span class="hd-logo">QUINTAXS</span><span class="hd-badge">Roadmap do Projeto</span></div>
+  <div class="hd-meta">
+    <span class="hd-client">${d.cliente}</span>
+    <span class="hd-project">${d.projeto}</span>
+    <span class="hd-date">Início: ${dateToDisplay(d.dataInicio)}</span>
+  </div>
+</header>
+<div class="progress-section">
+  <div class="progress-top"><span class="progress-label">Progresso geral</span><span class="progress-text">${progress}</span></div>
+  <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+  <div class="progress-legend">
+    <span class="legend-item"><span class="legend-dot l-done"></span>Concluída</span>
+    <span class="legend-item"><span class="legend-dot l-current"></span>Em andamento</span>
+    <span class="legend-item"><span class="legend-dot l-waiting"></span>Aguardando você</span>
+    <span class="legend-item"><span class="legend-dot l-upcoming"></span>Pendente</span>
+  </div>
+</div>
+<main class="timeline-wrap" id="timeline"></main>
+<div class="bottom-bar">
+  <div class="bar-info"><div class="bar-label">Etapa atual</div><div class="bar-step" id="bar-step">—</div></div>
+  <a class="wpp-btn" id="bar-wpp" href="https://wa.me/5531996783130" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Falar com Fabiano</a>
+</div>
+<script>
+const STEPS=${stepsJSON};
+requestAnimationFrame(()=>requestAnimationFrame(()=>{document.getElementById('prog-fill').style.width='${pct}%'}));
+const ICON={done:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/><\\/svg>',current:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><\\/svg>','waiting-client':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><\\/svg>',upcoming:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><\\/svg>'};
+const PILL={done:'<span class="status-pill s-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/><\\/svg> Concluída<\\/span>',current:'<span class="status-pill s-current"><span class="live-dot purple"><\\/span>Em andamento<\\/span>','waiting-client':'<span class="status-pill s-waiting"><span class="live-dot amber"><\\/span>Aguardando você<\\/span>',upcoming:'<span class="status-pill s-upcoming"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><\\/svg> A iniciar<\\/span>'};
+const active=STEPS.find(s=>s.status==='waiting-client')||STEPS.find(s=>s.status==='current')||STEPS.find(s=>s.status==='upcoming');
+if(active){document.getElementById('bar-step').textContent=active.title;document.getElementById('bar-wpp').href='https://wa.me/5531996783130?text='+encodeURIComponent('Olá Fabiano, estou vendo o roadmap e tenho uma dúvida sobre a etapa: '+active.title)}
+const tl=document.getElementById('timeline');
+STEPS.forEach((step,i)=>{
+  const isLast=i===STEPS.length-1;
+  const lc=isLast?'last-ln':step.status==='done'?'done-ln':step.status==='current'?'current-ln':step.status==='waiting-client'?'waiting-ln':'upcoming-ln';
+  const tagHtml=step.tag?'<span class="card-tag '+(step.tag==='Ação do cliente'?'tag-client':'tag-fabiano')+'">'+step.tag+'<\\/span>':'';
+  const dateHtml=step.date?'<span class="card-date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><\\/svg>'+step.date+'<\\/span>':'<span class="card-date" style="opacity:.3">A definir<\\/span>';
+  const actionBox=step.status==='waiting-client'?'<div class="action-box"><span class="action-box-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><\\/svg><\\/span><p>Esta etapa aguarda a sua participação. Clique em <strong>Falar com Fabiano<\\/strong> para tirar dúvidas.<\\/p><\\/div>':'';
+  tl.insertAdjacentHTML('beforeend','<div class="step-row" data-delay="'+i+'"><div class="step-left"><div class="step-dot '+step.status+'">'+ICON[step.status]+'<\\/div><div class="step-line '+lc+'"><\\/div><\\/div><div class="step-card-wrap"><div class="step-card '+step.status+'"><div class="card-top"><div class="card-title-group"><span class="card-num">Etapa '+String(step.id).padStart(2,'0')+'<\\/span><h3 class="card-title">'+step.title+'<\\/h3>'+tagHtml+'<\\/div>'+PILL[step.status]+'<\\/div><p class="card-desc">'+step.description+'<\\/p><div class="card-footer">'+dateHtml+'<\\/div>'+actionBox+'<\\/div><\\/div><\\/div>');
+});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const d=parseInt(x.target.dataset.delay,10)*75;setTimeout(()=>x.target.classList.add('visible'),d);obs.unobserve(x.target)})},{threshold:.05});
+document.querySelectorAll('.step-row').forEach(r=>obs.observe(r));
+<\/script>
+</body></html>`;
+}
+
+/* ═══════════════════════════════════════════════════════
+   DASHBOARD RENDER
+   ═══════════════════════════════════════════════════════ */
+function renderDashboard() {
+  const pList = $('list-proposals');
+  const rList = $('list-roadmaps');
+
+  if (!MANIFEST.proposals.length) {
+    pList.innerHTML = '<div class="empty"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Nenhuma proposta ainda.</div>';
+  } else {
+    pList.innerHTML = MANIFEST.proposals.map(p => `
+      <div class="item-card">
+        <div class="item-info">
+          <div class="item-client">${p.client}</div>
+          <div class="item-meta">${p.service} · Criada em ${p.created}</div>
+          <div class="item-url">fabianoquintanilha.com/propostas/${p.slug}</div>
+        </div>
+        <div class="item-actions">
+          <a class="btn btn-ghost btn-sm" href="/propostas/${p.slug}" target="_blank">Ver</a>
+          <button class="btn btn-ghost btn-sm" onclick="editProposal('${p.slug}')">Editar</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteItem('proposal','${p.slug}','${p.client}')">✕</button>
+        </div>
+      </div>`).join('');
+  }
+
+  if (!MANIFEST.roadmaps.length) {
+    rList.innerHTML = '<div class="empty"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Nenhum roadmap ainda.</div>';
+  } else {
+    rList.innerHTML = MANIFEST.roadmaps.map(r => `
+      <div class="item-card">
+        <div class="item-info">
+          <div class="item-client">${r.client}</div>
+          <div class="item-meta">${r.project} · Criado em ${r.created}</div>
+          <div class="item-url">fabianoquintanilha.com/propostas/${r.slug}</div>
+        </div>
+        <div class="item-actions">
+          <a class="btn btn-ghost btn-sm" href="/propostas/${r.slug}" target="_blank">Ver</a>
+          <button class="btn btn-gold btn-sm" onclick="editRoadmap('${r.slug}')">Editar</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteItem('roadmap','${r.slug}','${r.client}')">✕</button>
+        </div>
+      </div>`).join('');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   COSTS & BOXES (proposal editor)
+   ═══════════════════════════════════════════════════════ */
+function addCostRow(item='', desc='', valor='') {
+  const row = document.createElement('div');
+  row.className = 'cost-row';
+  row.innerHTML = `
+    <input class="input cost-item" placeholder="Adobe Premiere" value="${item}">
+    <input class="input cost-desc" placeholder="Edição de vídeo" value="${desc}">
+    <input class="input cost-valor" placeholder="R$ 120/mês" value="${valor}">
+    <button class="btn btn-danger btn-icon" onclick="this.closest('.cost-row').remove()">✕</button>`;
+  $('costs-list').appendChild(row);
+}
+
+function addBoxItem(container, text='') {
+  const row = document.createElement('div');
+  row.className = 'item-row';
+  row.innerHTML = `<input class="input" placeholder="Ex: 10 vídeos para Reels" value="${text}"><button class="btn btn-danger btn-icon btn-sm" onclick="this.closest('.item-row').remove()">✕</button>`;
+  container.appendChild(row);
+}
+
+function addBox(nome='', valor='', pgto='', itens=[]) {
+  const idx = $('boxes-list').children.length + 1;
+  const div = document.createElement('div');
+  div.className = 'box-item';
+  div.innerHTML = `
+    <div class="box-hd">
+      <span class="box-label">Pacote ${idx}</span>
+      <button class="btn btn-danger btn-sm" onclick="this.closest('.box-item').remove();reindexBoxes()">Remover pacote</button>
+    </div>
+    <div class="grid-2">
+      <div class="field"><label class="label">Nome do pacote</label><input class="input box-nome" placeholder="Ex: Projeto Avulso" value="${nome}"></div>
+      <div class="field"><label class="label">Preço</label><input class="input box-valor" placeholder="Ex: R$ 1.200" value="${valor}"></div>
+    </div>
+    <div class="field"><label class="label">Condição de pagamento</label><input class="input box-pgto" placeholder="Ex: 50% na aprovação + 50% na entrega" value="${pgto}"></div>
+    <div class="field">
+      <label class="label">Entregáveis</label>
+      <div class="items-list box-items"></div>
+      <button class="btn btn-ghost btn-sm" onclick="addBoxItem(this.previousElementSibling)">+ Item</button>
+    </div>`;
+  $('boxes-list').appendChild(div);
+  const itemsContainer = div.querySelector('.box-items');
+  itens.forEach(it => addBoxItem(itemsContainer, it));
+  if (!itens.length) addBoxItem(itemsContainer);
+}
+
+function reindexBoxes() {
+  document.querySelectorAll('.box-label').forEach((el, i) => { el.textContent = `Pacote ${i + 1}`; });
+}
+
+/* ═══════════════════════════════════════════════════════
+   STEPS (roadmap editor)
+   ═══════════════════════════════════════════════════════ */
+function addStep(step = {}) {
+  const idx = $('steps-list').children.length + 1;
+  const div = document.createElement('div');
+  div.className = 'step-item';
+  div.innerHTML = `
+    <div class="step-item-hd">
+      <span class="step-num">Etapa ${idx}</span>
+      <div class="step-controls">
+        <button class="btn btn-ghost btn-icon btn-sm" title="Subir" onclick="moveStep(this,-1)">↑</button>
+        <button class="btn btn-ghost btn-icon btn-sm" title="Descer" onclick="moveStep(this,1)">↓</button>
+        <button class="btn btn-danger btn-icon btn-sm" onclick="this.closest('.step-item').remove();reindexSteps()">✕</button>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="field"><label class="label">Título *</label><input class="input step-title" placeholder="Ex: Briefing Inicial" value="${step.title||''}"></div>
+      <div class="field"><label class="label">Status</label>
+        <select class="select step-status">
+          <option value="done"${step.status==='done'?' selected':''}>✓ Concluída</option>
+          <option value="current"${step.status==='current'?' selected':''}>● Em andamento</option>
+          <option value="waiting-client"${step.status==='waiting-client'?' selected':''}>⚠ Aguardando cliente</option>
+          <option value="upcoming"${(!step.status||step.status==='upcoming')?' selected':''}>🔒 Pendente</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label class="label">Descrição</label><input class="input step-desc" placeholder="Descreva o que acontece nesta etapa" value="${step.description||''}"></div>
+    <div class="grid-2">
+      <div class="field"><label class="label">Tag (opcional)</label>
+        <select class="select step-tag">
+          <option value=""${!step.tag?' selected':''}>Sem tag</option>
+          <option value="Ação do cliente"${step.tag==='Ação do cliente'?' selected':''}>Ação do cliente</option>
+          <option value="Ação do Fabiano"${step.tag==='Ação do Fabiano'?' selected':''}>Ação do Fabiano</option>
+        </select>
+      </div>
+      <div class="field"><label class="label">Data (DD/MM)</label><input class="input step-date" placeholder="Ex: 03/06" value="${step.date||''}"></div>
+    </div>`;
+  $('steps-list').appendChild(div);
+}
+
+function reindexSteps() {
+  document.querySelectorAll('.step-num').forEach((el, i) => { el.textContent = `Etapa ${i + 1}`; });
+}
+
+function moveStep(btn, dir) {
+  const item = btn.closest('.step-item');
+  const list = $('steps-list');
+  if (dir === -1 && item.previousElementSibling) list.insertBefore(item, item.previousElementSibling);
+  else if (dir === 1 && item.nextElementSibling) list.insertBefore(item.nextElementSibling, item);
+  reindexSteps();
+}
+
+/* ═══════════════════════════════════════════════════════
+   COLLECT FORM DATA
+   ═══════════════════════════════════════════════════════ */
+function collectProposalData() {
+  const custos = Array.from(document.querySelectorAll('.cost-row')).map(r => ({
+    item: r.querySelector('.cost-item').value.trim(),
+    desc: r.querySelector('.cost-desc').value.trim(),
+    valor: r.querySelector('.cost-valor').value.trim()
+  })).filter(c => c.item);
+
+  const boxes = Array.from(document.querySelectorAll('.box-item')).map(b => ({
+    nome: b.querySelector('.box-nome').value.trim(),
+    valor: b.querySelector('.box-valor').value.trim(),
+    pgto: b.querySelector('.box-pgto').value.trim(),
+    itens: Array.from(b.querySelectorAll('.box-items .input')).map(i => i.value.trim()).filter(Boolean)
+  }));
+
+  return {
+    cliente: $('p-cliente').value.trim(),
+    servico: $('p-servico').value.trim(),
+    tagline: $('p-tagline').value.trim(),
+    data: $('p-data').value,
+    validade: $('p-validade').value,
+    slug: slugify($('p-slug').value.trim() || $('p-cliente').value.trim()),
+    custos, boxes
+  };
+}
+
+function collectRoadmapData() {
+  const steps = Array.from(document.querySelectorAll('.step-item')).map((s, i) => ({
+    id: i + 1,
+    title: s.querySelector('.step-title').value.trim(),
+    description: s.querySelector('.step-desc').value.trim(),
+    status: s.querySelector('.step-status').value,
+    tag: s.querySelector('.step-tag').value || null,
+    date: s.querySelector('.step-date').value.trim() || null
+  }));
+
+  return {
+    cliente: $('r-cliente').value.trim(),
+    projeto: $('r-projeto').value.trim(),
+    dataInicio: $('r-data').value,
+    slug: slugify($('r-slug').value.trim() || $('r-cliente').value.trim() + '-roadmap'),
+    steps
+  };
+}
+
+/* ═══════════════════════════════════════════════════════
+   SAVE PROPOSAL
+   ═══════════════════════════════════════════════════════ */
+async function saveProposal() {
+  const d = collectProposalData();
+  if (!d.cliente || !d.servico) { showToast('Preencha nome do cliente e tipo de serviço.', 'error'); return; }
+
+  const lbl = $('prop-save-label');
+  lbl.innerHTML = '<span class="spinner"></span>';
+
+  try {
+    const html = generateProposalHTML(d);
+    const dataJson = JSON.stringify(d, null, 2);
+    const slug = d.slug;
+
+    await ghWrite(`propostas/${slug}/index.html`, html, `Proposta: ${d.cliente}`);
+    await ghWrite(`propostas/${slug}/data.json`, dataJson, `Data: ${d.cliente}`);
+
+    const existing = MANIFEST.proposals.findIndex(p => p.slug === slug);
+    const entry = { slug, client: d.cliente, service: d.servico, created: todayStr() };
+    if (existing >= 0) MANIFEST.proposals[existing] = entry;
+    else MANIFEST.proposals.push(entry);
+
+    await saveManifest(`Manifest: proposta ${d.cliente}`);
+    showToast(`Proposta de ${d.cliente} publicada!`);
+    await loadManifest();
+    renderDashboard();
+    showScreen('dashboard');
+  } catch(e) {
+    showToast('Erro: ' + e.message, 'error');
+  } finally {
+    lbl.textContent = 'Publicar';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   SAVE ROADMAP
+   ═══════════════════════════════════════════════════════ */
+async function saveRoadmap() {
+  const d = collectRoadmapData();
+  if (!d.cliente || !d.projeto) { showToast('Preencha nome do cliente e projeto.', 'error'); return; }
+
+  const lbl = $('road-save-label');
+  lbl.innerHTML = '<span class="spinner"></span>';
+
+  try {
+    const html = generateRoadmapHTML(d);
+    const dataJson = JSON.stringify(d, null, 2);
+    const slug = d.slug;
+
+    await ghWrite(`propostas/${slug}/index.html`, html, `Roadmap: ${d.cliente}`);
+    await ghWrite(`propostas/${slug}/data.json`, dataJson, `Data: ${d.cliente}`);
+
+    const existing = MANIFEST.roadmaps.findIndex(r => r.slug === slug);
+    const entry = { slug, client: d.cliente, project: d.projeto, created: todayStr() };
+    if (existing >= 0) MANIFEST.roadmaps[existing] = entry;
+    else MANIFEST.roadmaps.push(entry);
+
+    await saveManifest(`Manifest: roadmap ${d.cliente}`);
+    showToast(`Roadmap de ${d.cliente} publicado!`);
+    await loadManifest();
+    renderDashboard();
+    showScreen('dashboard');
+  } catch(e) {
+    showToast('Erro: ' + e.message, 'error');
+  } finally {
+    lbl.textContent = 'Publicar';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   EDIT
+   ═══════════════════════════════════════════════════════ */
+async function editProposal(slug) {
+  showScreen('proposal');
+  const { content } = await ghRead(`propostas/${slug}/data.json`);
+  if (!content) { showToast('Dados não encontrados.', 'error'); return; }
+  const d = JSON.parse(content);
+
+  $('p-cliente').value = d.cliente || '';
+  $('p-servico').value = d.servico || '';
+  $('p-tagline').value = d.tagline || '';
+  $('p-data').value    = d.data    || todayStr();
+  $('p-validade').value= d.validade|| '';
+  $('p-slug').value    = slug;
+
+  $('costs-list').innerHTML = '';
+  (d.custos||[]).forEach(c => addCostRow(c.item, c.desc, c.valor));
+
+  $('boxes-list').innerHTML = '';
+  (d.boxes||[]).forEach(b => addBox(b.nome, b.valor, b.pgto, b.itens||[]));
+}
+
+async function editRoadmap(slug) {
+  showScreen('roadmap');
+  const { content } = await ghRead(`propostas/${slug}/data.json`);
+  if (!content) { showToast('Dados não encontrados.', 'error'); return; }
+  const d = JSON.parse(content);
+
+  $('r-cliente').value  = d.cliente   || '';
+  $('r-projeto').value  = d.projeto   || '';
+  $('r-data').value     = d.dataInicio|| todayStr();
+  $('r-slug').value     = slug;
+
+  $('steps-list').innerHTML = '';
+  (d.steps||[]).forEach(s => addStep(s));
+}
+
+/* ═══════════════════════════════════════════════════════
+   DELETE
+   ═══════════════════════════════════════════════════════ */
+async function deleteItem(type, slug, client) {
+  if (!confirm(`Apagar ${type === 'proposal' ? 'proposta' : 'roadmap'} de ${client}?`)) return;
+  try {
+    await ghDelete(`propostas/${slug}/index.html`, `Remove: ${client}`);
+    await ghDelete(`propostas/${slug}/data.json`,  `Remove data: ${client}`);
+    if (type === 'proposal') MANIFEST.proposals = MANIFEST.proposals.filter(p => p.slug !== slug);
+    else MANIFEST.roadmaps = MANIFEST.roadmaps.filter(r => r.slug !== slug);
+    await saveManifest(`Remove: ${client}`);
+    showToast(`${client} removido.`);
+    renderDashboard();
+  } catch(e) {
+    showToast('Erro: ' + e.message, 'error');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   AUTH
+   ═══════════════════════════════════════════════════════ */
+async function init() {
+  if (!Store.pwHash) { showScreen('setup'); return; }
+  showScreen('login');
+}
+
+$('btn-login').addEventListener('click', async () => {
+  const pw = $('pw-input').value;
+  if (!pw) return;
+  const hash = await hashPw(pw);
+  if (hash !== Store.pwHash) {
+    $('login-err').style.display = 'block';
+    return;
+  }
+  $('login-err').style.display = 'none';
+  await enterDashboard();
+});
+
+$('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') $('btn-login').click(); });
+
+$('btn-setup').addEventListener('click', async () => {
+  const pw    = $('setup-pw').value.trim();
+  const token = $('setup-token').value.trim();
+  if (!pw || !token) { $('setup-err').textContent = 'Preencha senha e token.'; $('setup-err').style.display = 'block'; return; }
+  Store.pwHash = await hashPw(pw);
+  Store.token  = token;
+  $('setup-err').style.display = 'none';
+  await enterDashboard();
+});
+
+async function enterDashboard() {
+  $('dash-status').textContent = 'Carregando dados…';
+  showScreen('dashboard');
+  try {
+    await loadManifest();
+    $('dash-status').textContent = `${MANIFEST.proposals.length} proposta(s) · ${MANIFEST.roadmaps.length} roadmap(s)`;
+    renderDashboard();
+  } catch(e) {
+    $('dash-status').textContent = '⚠ Verifique o token do GitHub nas configurações.';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAV EVENTS
+   ═══════════════════════════════════════════════════════ */
+$('btn-logout').addEventListener('click', () => { showScreen('login'); $('pw-input').value = ''; });
+$('btn-settings').addEventListener('click', () => { $('cfg-token').value = Store.token; showScreen('settings'); });
+$('settings-back').addEventListener('click', () => showScreen('dashboard'));
+$('prop-back').addEventListener('click', () => showScreen('dashboard'));
+$('road-back').addEventListener('click', () => showScreen('dashboard'));
+
+$('btn-new-proposal').addEventListener('click', () => {
+  $('p-cliente').value = $('p-servico').value = $('p-tagline').value = $('p-slug').value = '';
+  $('p-data').value = todayStr();
+  const val = new Date(); val.setDate(val.getDate() + 7);
+  $('p-validade').value = val.toISOString().slice(0,10);
+  $('costs-list').innerHTML = '';
+  addCostRow();
+  $('boxes-list').innerHTML = '';
+  addBox('Projeto Avulso'); addBox('Contrato Trimestral'); addBox('Contrato Semestral');
+  showScreen('proposal');
+});
+
+$('btn-new-roadmap').addEventListener('click', () => {
+  $('r-cliente').value = $('r-projeto').value = $('r-slug').value = '';
+  $('r-data').value = todayStr();
+  $('steps-list').innerHTML = '';
+  [
+    { title: 'Briefing Inicial', description: 'Alinhamento de expectativas, objetivos e tom de voz.' },
+    { title: 'Envio de Materiais', description: 'Cliente envia arquivos e referências necessárias.', tag: 'Ação do cliente' },
+    { title: 'Produção', description: 'Edição e montagem das peças.' },
+    { title: 'Aprovação Final', description: 'Confirmação antes da entrega.', tag: 'Ação do cliente' },
+    { title: 'Entrega dos Arquivos', description: 'Arquivos finais entregues em alta resolução.' }
+  ].forEach(s => addStep(s));
+  showScreen('roadmap');
+});
+
+$('btn-add-cost').addEventListener('click', () => addCostRow());
+$('btn-add-box').addEventListener('click', () => { addBox(); reindexBoxes(); });
+$('btn-add-step').addEventListener('click', () => addStep());
+$('btn-save-proposal').addEventListener('click', saveProposal);
+$('btn-save-roadmap').addEventListener('click', saveRoadmap);
+
+$('btn-save-token').addEventListener('click', () => { Store.token = $('cfg-token').value.trim(); showToast('Token salvo.'); });
+$('btn-save-pw').addEventListener('click', async () => {
+  const pw = $('cfg-pw').value.trim();
+  if (!pw) return;
+  Store.pwHash = await hashPw(pw);
+  showToast('Senha alterada.');
+  $('cfg-pw').value = '';
+});
+$('btn-clear').addEventListener('click', () => { if (confirm('Limpar dados locais?')) { Store.clear(); location.reload(); } });
+
+/* ── Auto-slug from client name ── */
+$('p-cliente').addEventListener('input', () => {
+  if (!$('p-slug').value || $('p-slug').dataset.manual !== '1')
+    $('p-slug').value = slugify($('p-cliente').value);
+});
+$('p-slug').addEventListener('input', () => { $('p-slug').dataset.manual = '1'; });
+$('r-cliente').addEventListener('input', () => {
+  if (!$('r-slug').value || $('r-slug').dataset.manual !== '1')
+    $('r-slug').value = slugify($('r-cliente').value) + '-roadmap';
+});
+$('r-slug').addEventListener('input', () => { $('r-slug').dataset.manual = '1'; });
+
+/* ── Boot ── */
+init();
+</script>
+</body>
+</html>
