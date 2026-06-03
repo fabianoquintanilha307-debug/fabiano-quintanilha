@@ -1,0 +1,29 @@
+{
+  "cliente": "werre",
+  "servico": "rettrtgrtr",
+  "tagline": "",
+  "data": "2026-06-03",
+  "validade": "2026-06-10",
+  "slug": "werre",
+  "custos": [],
+  "boxes": [
+    {
+      "nome": "Projeto Avulso",
+      "valor": "12981899",
+      "pgto": "",
+      "itens": []
+    },
+    {
+      "nome": "Contrato Trimestral",
+      "valor": "1897189",
+      "pgto": "",
+      "itens": []
+    },
+    {
+      "nome": "Contrato Semestral",
+      "valor": "12891298",
+      "pgto": "",
+      "itens": []
+    }
+  ]
+}
