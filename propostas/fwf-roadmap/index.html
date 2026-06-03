@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap · fwf · Fabiano Quintanilha</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJERTD370J"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-LJERTD370J');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wyrebeq6dv");</script>
+<style>
+:root{--bg:#080b14;--bg2:#0d1120;--accent:#7b3ff5;--accent2:#a855f7;--gold:#f59e0b;--gold2:#fbbf24;--green:#10b981;--green2:#34d399;--text:#f0eaff;--muted:#8b82a8;--muted2:#4e4869;--border:rgba(123,63,245,.2);--border2:rgba(123,63,245,.4);--card-bg:rgba(255,255,255,.03);--card-bd:rgba(255,255,255,.07)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;padding-bottom:82px}
+.site-header{position:sticky;top:0;z-index:50;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;background:rgba(8,11,20,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.site-header::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 250% at 50% 0%,rgba(123,63,245,.08),transparent 70%)}
+.hd-brand{display:flex;align-items:center;gap:.7rem;position:relative;z-index:1}
+.hd-logo{font-size:.7rem;font-weight:800;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase}
+.hd-badge{background:rgba(123,63,245,.15);border:1px solid var(--border2);color:var(--accent2);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:2rem}
+.hd-meta{display:flex;flex-direction:column;align-items:flex-end;gap:.1rem;position:relative;z-index:1}
+.hd-client{font-size:1rem;font-weight:800;letter-spacing:-.02em;background:linear-gradient(135deg,#fff,#d4b8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hd-project{font-size:.75rem;color:var(--muted)}.hd-date{font-size:.65rem;color:var(--muted2)}
+.progress-section{padding:1.4rem 2rem 1.6rem;background:var(--bg2);border-bottom:1px solid var(--border)}
+.progress-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.progress-label{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2)}
+.progress-text{font-size:.75rem;color:var(--muted);font-weight:500}
+.progress-track{width:100%;height:10px;background:rgba(255,255,255,.05);border-radius:99px;border:1px solid var(--border);overflow:hidden}
+.progress-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2) 55%,var(--gold));transition:width 1.5s cubic-bezier(.16,1,.3,1);position:relative}
+.progress-fill::after{content:'';position:absolute;inset:0;border-radius:99px;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.28) 50%,transparent 100%);animation:shimmer 2.2s ease-in-out infinite}
+@keyframes shimmer{0%{transform:translateX(-200%)}100%{transform:translateX(200%)}}
+.progress-legend{display:flex;gap:1.5rem;margin-top:.9rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:var(--muted)}
+.legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.l-done{background:var(--green)}.l-current{background:var(--accent2)}.l-waiting{background:var(--gold)}.l-upcoming{background:var(--muted2)}
+.timeline-wrap{max-width:700px;margin:0 auto;padding:2.5rem 1.5rem 2rem}
+.step-row{display:flex;gap:0;opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.step-row.visible{opacity:1;transform:translateY(0)}
+.step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:52px}
+.step-dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:2;transition:all .3s}
+.step-dot svg{display:block}
+.step-dot.done{background:rgba(16,185,129,.14);border:2px solid rgba(16,185,129,.5);color:var(--green2)}
+.step-dot.current{background:rgba(123,63,245,.22);border:2px solid var(--accent2);color:var(--accent2);animation:pulse-purple 2.6s ease-in-out infinite}
+.step-dot.waiting-client{background:rgba(245,158,11,.16);border:2px solid rgba(245,158,11,.65);color:var(--gold2);animation:pulse-gold 2.6s ease-in-out infinite}
+.step-dot.upcoming{background:rgba(255,255,255,.03);border:2px solid var(--muted2);color:var(--muted2)}
+@keyframes pulse-purple{0%,100%{box-shadow:0 0 0 0 rgba(123,63,245,.45)}50%{box-shadow:0 0 0 10px rgba(123,63,245,0)}}
+@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}50%{box-shadow:0 0 0 10px rgba(245,158,11,0)}}
+.step-line{width:2px;flex:1;min-height:20px}
+.done-ln{background:linear-gradient(to bottom,rgba(16,185,129,.45),rgba(123,63,245,.3))}.current-ln{background:linear-gradient(to bottom,var(--accent),rgba(123,63,245,.18))}.waiting-ln{background:linear-gradient(to bottom,var(--gold),rgba(255,255,255,.08))}.upcoming-ln{background:rgba(255,255,255,.06)}.last-ln{display:none}
+.step-card-wrap{flex:1;padding:0 0 2.5rem 1.25rem}
+.step-card{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:1.25rem;padding:1.4rem 1.5rem;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.step-card.done{opacity:.7}.step-card.done::before{background:linear-gradient(90deg,rgba(16,185,129,.7),rgba(16,185,129,.15))}
+.step-card.current{border-color:var(--accent);background:linear-gradient(145deg,rgba(123,63,245,.1),rgba(168,85,247,.05));box-shadow:0 0 36px rgba(123,63,245,.18),0 8px 32px rgba(0,0,0,.35)}.step-card.current::before{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.step-card.waiting-client{border-color:rgba(245,158,11,.45);background:linear-gradient(145deg,rgba(245,158,11,.07),transparent);box-shadow:0 0 24px rgba(245,158,11,.12)}.step-card.waiting-client::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.step-card.upcoming{opacity:.45}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.45rem;flex-wrap:wrap}
+.card-title-group{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.card-num{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);background:rgba(255,255,255,.05);padding:.16rem .48rem;border-radius:.3rem;flex-shrink:0}
+.card-title{font-size:.97rem;font-weight:700;letter-spacing:-.01em}
+.card-tag{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2rem;white-space:nowrap}
+.tag-client{background:rgba(245,158,11,.13);border:1px solid rgba(245,158,11,.35);color:var(--gold2)}
+.tag-fabiano{background:rgba(123,63,245,.13);border:1px solid var(--border);color:var(--accent2)}
+.status-pill{display:inline-flex;align-items:center;gap:.38rem;font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.s-done{color:var(--green2)}.s-current{color:var(--accent2)}.s-waiting{color:var(--gold2)}.s-upcoming{color:var(--muted2)}
+.live-dot{width:6px;height:6px;border-radius:50%;animation:blink 1.6s ease-in-out infinite}
+.live-dot.purple{background:var(--accent2)}.live-dot.amber{background:var(--gold2)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.card-desc{font-size:.82rem;color:var(--muted);line-height:1.55;margin:.5rem 0 .7rem}
+.card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem}
+.card-date{display:flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--muted2)}
+.card-date svg{opacity:.45}
+.action-box{margin-top:.85rem;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.22);border-radius:.85rem;padding:.8rem 1rem;display:flex;align-items:flex-start;gap:.7rem}
+.action-box-icon{color:var(--gold);flex-shrink:0;margin-top:1px}
+.action-box p{font-size:.76rem;color:var(--gold2);line-height:1.5;font-weight:500}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,11,20,.93);backdrop-filter:blur(18px);border-top:1px solid var(--border);padding:.85rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.bar-info{line-height:1.25}.bar-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)}
+.bar-step{font-size:.88rem;font-weight:700}
+.wpp-btn{display:inline-flex;align-items:center;gap:.5rem;background:#25D366;color:#fff;font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:700;text-decoration:none;padding:.65rem 1.3rem;border-radius:2rem;box-shadow:0 4px 14px rgba(37,211,102,.3);transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.wpp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,211,102,.5)}
+@media(max-width:600px){.site-header{padding:1rem 1.2rem}.progress-section{padding:1.1rem 1.2rem 1.3rem}.timeline-wrap{padding:1.75rem .9rem 1.5rem}.step-left{width:40px}.step-dot{width:38px;height:38px}.step-card-wrap{padding:0 0 2rem .9rem}.bottom-bar{padding:.75rem 1.2rem}}
+@media print{body{background:#fff;color:#000;padding-bottom:0}.site-header{position:static;background:#f5f3ff;backdrop-filter:none}.hd-client{-webkit-text-fill-color:#4c1d95;background:none}.step-row{opacity:1!important;transform:none!important}.step-card{border:1px solid #e5e7eb;background:#fff!important;box-shadow:none!important;opacity:1!important}.step-dot{animation:none!important;box-shadow:none!important}.bottom-bar,.wpp-btn{display:none}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hd-brand"><span class="hd-logo">QUINTAXS</span><span class="hd-badge">Roadmap do Projeto</span></div>
+  <div class="hd-meta">
+    <span class="hd-client">fwf</span>
+    <span class="hd-project">fwefew</span>
+    <span class="hd-date">Início: 03/06/2026</span>
+  </div>
+</header>
+<div class="progress-section">
+  <div class="progress-top"><span class="progress-label">Progresso geral</span><span class="progress-text">0 de 5 etapas concluídas</span></div>
+  <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+  <div class="progress-legend">
+    <span class="legend-item"><span class="legend-dot l-done"></span>Concluída</span>
+    <span class="legend-item"><span class="legend-dot l-current"></span>Em andamento</span>
+    <span class="legend-item"><span class="legend-dot l-waiting"></span>Aguardando você</span>
+    <span class="legend-item"><span class="legend-dot l-upcoming"></span>Pendente</span>
+  </div>
+</div>
+<main class="timeline-wrap" id="timeline"></main>
+<div class="bottom-bar">
+  <div class="bar-info"><div class="bar-label">Etapa atual</div><div class="bar-step" id="bar-step">—</div></div>
+  <a class="wpp-btn" id="bar-wpp" href="https://wa.me/5531996783130" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Falar com Fabiano</a>
+</div>
+<script>
+const STEPS=[
+  {
+    "id": 1,
+    "title": "Briefing Inicial",
+    "description": "Alinhamento de expectativas, objetivos e tom de voz.",
+    "status": "upcoming",
+    "tag": null,
+    "date": null
+  },
+  {
+    "id": 2,
+    "title": "Envio de Materiais",
+    "description": "Cliente envia arquivos e referências necessárias.",
+    "status": "upcoming",
+    "tag": "Ação do cliente",
+    "date": null
+  },
+  {
+    "id": 3,
+    "title": "Produção",
+    "description": "Edição e montagem das peças.",
+    "status": "upcoming",
+    "tag": null,
+    "date": null
+  },
+  {
+    "id": 4,
+    "title": "Aprovação Final",
+    "description": "Confirmação antes da entrega.",
+    "status": "upcoming",
+    "tag": "Ação do cliente",
+    "date": null
+  },
+  {
+    "id": 5,
+    "title": "Entrega dos Arquivos",
+    "description": "Arquivos finais entregues em alta resolução.",
+    "status": "upcoming",
+    "tag": null,
+    "date": null
+  }
+];
+requestAnimationFrame(()=>requestAnimationFrame(()=>{document.getElementById('prog-fill').style.width='0%'}));
+const ICON={done:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/><\/svg>',current:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><\/svg>','waiting-client':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><\/svg>',upcoming:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><\/svg>'};
+const PILL={done:'<span class="status-pill s-done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/><\/svg> Concluída<\/span>',current:'<span class="status-pill s-current"><span class="live-dot purple"><\/span>Em andamento<\/span>','waiting-client':'<span class="status-pill s-waiting"><span class="live-dot amber"><\/span>Aguardando você<\/span>',upcoming:'<span class="status-pill s-upcoming"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><\/svg> A iniciar<\/span>'};
+const active=STEPS.find(s=>s.status==='waiting-client')||STEPS.find(s=>s.status==='current')||STEPS.find(s=>s.status==='upcoming');
+if(active){document.getElementById('bar-step').textContent=active.title;document.getElementById('bar-wpp').href='https://wa.me/5531996783130?text='+encodeURIComponent('Olá Fabiano, estou vendo o roadmap e tenho uma dúvida sobre a etapa: '+active.title)}
+const tl=document.getElementById('timeline');
+STEPS.forEach((step,i)=>{
+  const isLast=i===STEPS.length-1;
+  const lc=isLast?'last-ln':step.status==='done'?'done-ln':step.status==='current'?'current-ln':step.status==='waiting-client'?'waiting-ln':'upcoming-ln';
+  const tagHtml=step.tag?'<span class="card-tag '+(step.tag==='Ação do cliente'?'tag-client':'tag-fabiano')+'">'+step.tag+'<\/span>':'';
+  const dateHtml=step.date?'<span class="card-date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><\/svg>'+step.date+'<\/span>':'<span class="card-date" style="opacity:.3">A definir<\/span>';
+  const actionBox=step.status==='waiting-client'?'<div class="action-box"><span class="action-box-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><\/svg><\/span><p>Esta etapa aguarda a sua participação. Clique em <strong>Falar com Fabiano<\/strong> para tirar dúvidas.<\/p><\/div>':'';
+  tl.insertAdjacentHTML('beforeend','<div class="step-row" data-delay="'+i+'"><div class="step-left"><div class="step-dot '+step.status+'">'+ICON[step.status]+'<\/div><div class="step-line '+lc+'"><\/div><\/div><div class="step-card-wrap"><div class="step-card '+step.status+'"><div class="card-top"><div class="card-title-group"><span class="card-num">Etapa '+String(step.id).padStart(2,'0')+'<\/span><h3 class="card-title">'+step.title+'<\/h3>'+tagHtml+'<\/div>'+PILL[step.status]+'<\/div><p class="card-desc">'+step.description+'<\/p><div class="card-footer">'+dateHtml+'<\/div>'+actionBox+'<\/div><\/div><\/div>');
+});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const d=parseInt(x.target.dataset.delay,10)*75;setTimeout(()=>x.target.classList.add('visible'),d);obs.unobserve(x.target)})},{threshold:.05});
+document.querySelectorAll('.step-row').forEach(r=>obs.observe(r));
+</script>
+</body></html>
