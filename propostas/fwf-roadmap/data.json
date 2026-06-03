@@ -1,0 +1,48 @@
+{
+  "cliente": "fwf",
+  "projeto": "fwefew",
+  "dataInicio": "2026-06-03",
+  "slug": "fwf-roadmap",
+  "steps": [
+    {
+      "id": 1,
+      "title": "Briefing Inicial",
+      "description": "Alinhamento de expectativas, objetivos e tom de voz.",
+      "status": "upcoming",
+      "tag": null,
+      "date": null
+    },
+    {
+      "id": 2,
+      "title": "Envio de Materiais",
+      "description": "Cliente envia arquivos e referências necessárias.",
+      "status": "upcoming",
+      "tag": "Ação do cliente",
+      "date": null
+    },
+    {
+      "id": 3,
+      "title": "Produção",
+      "description": "Edição e montagem das peças.",
+      "status": "upcoming",
+      "tag": null,
+      "date": null
+    },
+    {
+      "id": 4,
+      "title": "Aprovação Final",
+      "description": "Confirmação antes da entrega.",
+      "status": "upcoming",
+      "tag": "Ação do cliente",
+      "date": null
+    },
+    {
+      "id": 5,
+      "title": "Entrega dos Arquivos",
+      "description": "Arquivos finais entregues em alta resolução.",
+      "status": "upcoming",
+      "tag": null,
+      "date": null
+    }
+  ]
+}
