@@ -1,0 +1,29 @@
+{
+  "cliente": "dqsqd2ewqfg",
+  "servico": "gwegwgfwe",
+  "tagline": "",
+  "data": "2026-06-03",
+  "validade": "2026-06-10",
+  "slug": "dqsqd2ewqfg",
+  "custos": [],
+  "boxes": [
+    {
+      "nome": "Projeto Avulso",
+      "valor": "gwew",
+      "pgto": "",
+      "itens": []
+    },
+    {
+      "nome": "Contrato Trimestral",
+      "valor": "geww",
+      "pgto": "",
+      "itens": []
+    },
+    {
+      "nome": "Contrato Semestral",
+      "valor": "gwew",
+      "pgto": "",
+      "itens": []
+    }
+  ]
+}
