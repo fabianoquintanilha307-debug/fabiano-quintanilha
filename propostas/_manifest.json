@@ -7,5 +7,12 @@
       "created": "2026-06-03"
     }
   ],
-  "roadmaps": []
+  "roadmaps": [
+    {
+      "slug": "fwf-roadmap",
+      "client": "fwf",
+      "project": "fwefew",
+      "created": "2026-06-03"
+    }
+  ]
 }
