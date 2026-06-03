@@ -1,0 +1,42 @@
+{
+  "cliente": "erica santiago teste",
+  "servico": "edição de vídeo, criação de landing pages e manutenção",
+  "tagline": "",
+  "data": "2026-06-03",
+  "validade": "2026-06-10",
+  "slug": "erica-santiago-teste",
+  "custos": [
+    {
+      "item": "adobe premiere",
+      "desc": "",
+      "valor": "58"
+    },
+    {
+      "item": "higgsfield",
+      "desc": "",
+      "valor": "250"
+    },
+    {
+      "item": "claude code",
+      "desc": "",
+      "valor": "500"
+    }
+  ],
+  "boxes": [
+    {
+      "nome": "Projeto Avulso",
+      "valor": "5000",
+      "pgto": "",
+      "itens": []
+    },
+    {
+      "nome": "Contrato Trimestral",
+      "valor": "11000",
+      "pgto": "11000 a vista ou  3 de 4000",
+      "itens": [
+        "15 videos mes",
+        "7 paginas"
+      ]
+    }
+  ]
+}
