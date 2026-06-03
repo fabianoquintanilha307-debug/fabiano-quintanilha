@@ -305,6 +305,12 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;fon
       <button class="btn btn-primary btn-sm" id="btn-save-token">Salvar token</button>
     </div>
     <div class="card" style="margin-top:1rem">
+      <h2 style="font-size:1rem;font-weight:700;margin-bottom:.5rem">Netlify Token</h2>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:1rem">Necessário para publicar sem precisar do terminal.</p>
+      <div class="field"><label class="label">Token Netlify (nfc_...)</label><input id="cfg-nl-token" type="password" class="input"></div>
+      <button class="btn btn-gold btn-sm" id="btn-save-nl-token">Salvar token Netlify</button>
+    </div>
+    <div class="card" style="margin-top:1rem">
       <h2 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem">Alterar senha</h2>
       <div class="field"><label class="label">Nova senha</label><input id="cfg-pw" type="password" class="input"></div>
       <button class="btn btn-ghost btn-sm" id="btn-save-pw">Alterar senha</button>
@@ -366,12 +372,16 @@ function slugify(str) {
 /* ═══════════════════════════════════════════════════════
    STORAGE
    ═══════════════════════════════════════════════════════ */
+const NETLIFY_SITE_ID = 'cf50b85d-4cab-4fa1-aa94-7e4c7e68fb7c';
+
 const Store = {
-  get token()  { return localStorage.getItem('qx_token') || ''; },
-  set token(v) { localStorage.setItem('qx_token', v); },
-  get pwHash() { return localStorage.getItem('qx_pw') || ''; },
-  set pwHash(v){ localStorage.setItem('qx_pw', v); },
-  clear()      { localStorage.removeItem('qx_token'); localStorage.removeItem('qx_pw'); }
+  get token()        { return localStorage.getItem('qx_token') || ''; },
+  set token(v)       { localStorage.setItem('qx_token', v); },
+  get pwHash()       { return localStorage.getItem('qx_pw') || ''; },
+  set pwHash(v)      { localStorage.setItem('qx_pw', v); },
+  get netlifyToken() { return localStorage.getItem('qx_nl_token') || ''; },
+  set netlifyToken(v){ localStorage.setItem('qx_nl_token', v); },
+  clear()            { ['qx_token','qx_pw','qx_nl_token'].forEach(k => localStorage.removeItem(k)); }
 };
 
 /* ═══════════════════════════════════════════════════════
@@ -935,6 +945,63 @@ function collectRoadmapData() {
 /* ═══════════════════════════════════════════════════════
    SAVE PROPOSAL
    ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   NETLIFY DIRECT DEPLOY
+   ═══════════════════════════════════════════════════════ */
+async function sha1hex(str) {
+  const buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function netlifyPublish(newFiles) {
+  const nlToken = Store.netlifyToken;
+  if (!nlToken) return; // silently skip if no token — GitHub write still happened
+
+  const hdrs = { Authorization: `Bearer ${nlToken}`, 'Content-Type': 'application/json' };
+
+  // Get current site file manifest
+  const current = await fetch(
+    `https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/files`,
+    { headers: hdrs }
+  ).then(r => r.json());
+
+  const manifest = {};
+  if (Array.isArray(current)) {
+    current.forEach(f => { if (f.id && f.sha) manifest[f.id] = f.sha; });
+  }
+
+  // Add/override with new files
+  for (const [path, content] of Object.entries(newFiles)) {
+    const p = path.startsWith('/') ? path : '/' + path;
+    manifest[p] = await sha1hex(content);
+  }
+
+  // Create deploy
+  const deploy = await fetch(
+    `https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/deploys`,
+    { method: 'POST', headers: hdrs, body: JSON.stringify({ files: manifest }) }
+  ).then(r => r.json());
+
+  if (!deploy.id) throw new Error(deploy.message || 'Netlify deploy failed');
+
+  // Upload required files
+  const required = new Set(deploy.required || []);
+  for (const [path, content] of Object.entries(newFiles)) {
+    const fileSha = await sha1hex(content);
+    if (required.has(fileSha)) {
+      const encodedPath = path.split('/').map(encodeURIComponent).join('/');
+      await fetch(
+        `https://api.netlify.com/api/v1/deploys/${deploy.id}/files/${encodedPath}`,
+        {
+          method: 'PUT',
+          headers: { Authorization: `Bearer ${nlToken}`, 'Content-Type': 'application/octet-stream' },
+          body: new TextEncoder().encode(content)
+        }
+      );
+    }
+  }
+}
+
 async function saveProposal() {
   const d = collectProposalData();
   if (!d.cliente || !d.servico) { showToast('Preencha nome do cliente e tipo de serviço.', 'error'); return; }
@@ -955,8 +1022,16 @@ async function saveProposal() {
     if (existing >= 0) MANIFEST.proposals[existing] = entry;
     else MANIFEST.proposals.push(entry);
 
-    await saveManifest(`Manifest: proposta ${d.cliente}`);
-    showToast(`Proposta de ${d.cliente} publicada!`);
+    const manifestJson = JSON.stringify(MANIFEST, null, 2);
+    await ghWrite('propostas/_manifest.json', manifestJson, `Manifest: proposta ${d.cliente}`);
+    MANIFEST = JSON.parse(manifestJson);
+
+    await netlifyPublish({
+      [`propostas/${slug}/index.html`]: html,
+      [`propostas/${slug}/data.json`]: dataJson,
+      'propostas/_manifest.json': manifestJson
+    });
+    showToast(`Proposta de ${d.cliente} publicada e no ar! ✓`);
     await loadManifest();
     renderDashboard();
     showScreen('dashboard');
@@ -990,8 +1065,16 @@ async function saveRoadmap() {
     if (existing >= 0) MANIFEST.roadmaps[existing] = entry;
     else MANIFEST.roadmaps.push(entry);
 
-    await saveManifest(`Manifest: roadmap ${d.cliente}`);
-    showToast(`Roadmap de ${d.cliente} publicado!`);
+    const manifestJson = JSON.stringify(MANIFEST, null, 2);
+    await ghWrite('propostas/_manifest.json', manifestJson, `Manifest: roadmap ${d.cliente}`);
+    MANIFEST = JSON.parse(manifestJson);
+
+    await netlifyPublish({
+      [`propostas/${slug}/index.html`]: html,
+      [`propostas/${slug}/data.json`]: dataJson,
+      'propostas/_manifest.json': manifestJson
+    });
+    showToast(`Roadmap de ${d.cliente} publicado e no ar! ✓`);
     await loadManifest();
     renderDashboard();
     showScreen('dashboard');
@@ -1106,7 +1189,11 @@ async function enterDashboard() {
    NAV EVENTS
    ═══════════════════════════════════════════════════════ */
 $('btn-logout').addEventListener('click', () => { showScreen('login'); $('pw-input').value = ''; });
-$('btn-settings').addEventListener('click', () => { $('cfg-token').value = Store.token; showScreen('settings'); });
+$('btn-settings').addEventListener('click', () => {
+  $('cfg-token').value = Store.token;
+  $('cfg-nl-token').value = Store.netlifyToken;
+  showScreen('settings');
+});
 $('settings-back').addEventListener('click', () => showScreen('dashboard'));
 $('prop-back').addEventListener('click', () => showScreen('dashboard'));
 $('road-back').addEventListener('click', () => showScreen('dashboard'));
@@ -1144,6 +1231,7 @@ $('btn-save-proposal').addEventListener('click', saveProposal);
 $('btn-save-roadmap').addEventListener('click', saveRoadmap);
 
 $('btn-save-token').addEventListener('click', () => { Store.token = $('cfg-token').value.trim(); showToast('Token salvo.'); });
+$('btn-save-nl-token').addEventListener('click', () => { Store.netlifyToken = $('cfg-nl-token').value.trim(); showToast('Token Netlify salvo.'); });
 $('btn-save-pw').addEventListener('click', async () => {
   const pw = $('cfg-pw').value.trim();
   if (!pw) return;
