@@ -1,0 +1,48 @@
+{
+  "cliente": "Erica Santiago",
+  "projeto": "Rees Instagram Erica.",
+  "dataInicio": "2026-08-09",
+  "slug": "erica-santiago-roadmap",
+  "steps": [
+    {
+      "id": 1,
+      "title": "Briefing Inicial",
+      "description": "Alinhamento de expectativas, objetivos e tom de voz.",
+      "status": "upcoming",
+      "tag": null,
+      "date": null
+    },
+    {
+      "id": 2,
+      "title": "Envio de Materiais",
+      "description": "Criação de uma pasta no google drive por onde os vídeos brutos devem ser enviados. Videos gravados via Iphone em 4k 30fps com modo HDR desabilitado.",
+      "status": "upcoming",
+      "tag": "Ação do cliente",
+      "date": null
+    },
+    {
+      "id": 3,
+      "title": "Produção",
+      "description": "Edição e montagem das peças.",
+      "status": "upcoming",
+      "tag": null,
+      "date": null
+    },
+    {
+      "id": 4,
+      "title": "Aprovação Final",
+      "description": "Os vídeos são devolvidos em uma subpasta no mesmo drive para Avaliação e aprovação dos conteúdos editados.",
+      "status": "upcoming",
+      "tag": "Ação do cliente",
+      "date": null
+    },
+    {
+      "id": 5,
+      "title": "Entrega dos Arquivos",
+      "description": "Os vídeos aprovados são upados em uma subpasta com o nome de \"aprovados\", devidamente finalizados e prontos para serem postados.",
+      "status": "upcoming",
+      "tag": null,
+      "date": null
+    }
+  ]
+}
