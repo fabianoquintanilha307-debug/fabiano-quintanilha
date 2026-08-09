@@ -1,5 +1,12 @@
 {
-  "proposals": [],
+  "proposals": [
+    {
+      "slug": "erica-santiago",
+      "client": "Erica Santiago",
+      "service": "Edição de Vídeos para reels",
+      "created": "2026-08-09"
+    }
+  ],
   "roadmaps": [
     {
       "slug": "fwf-roadmap",
