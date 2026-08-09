@@ -39,7 +39,7 @@
     {
       "id": 5,
       "title": "Entrega dos Arquivos",
-      "description": "Os vídeos aprovados são upados em uma subpasta com o nome de \"aprovados\", devidamente finalizados e prontos para serem postados.",
+      "description": "Os vídeos aprovados são upados em uma subpasta com o nome de",
       "status": "upcoming",
       "tag": null,
       "date": null
