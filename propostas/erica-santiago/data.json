@@ -1,0 +1,47 @@
+{
+  "cliente": "Erica Santiago",
+  "servico": "Edição de Vídeos para reels",
+  "tagline": "Conteúdo Micropigmentação  e carreira",
+  "data": "2026-08-09",
+  "validade": "2026-08-31",
+  "slug": "erica-santiago",
+  "custos": [
+    {
+      "item": "Pacote Adobe",
+      "desc": "Edição de vídeos",
+      "valor": "214"
+    },
+    {
+      "item": "Maginific AI",
+      "desc": "IA generativa de vídeos e imagem, banco de imagens, vídeos e audio \"stock content\"",
+      "valor": "180"
+    }
+  ],
+  "boxes": [
+    {
+      "nome": "Projeto Avulso",
+      "valor": "1.437",
+      "pgto": "à vista no pix ou boleto",
+      "itens": [
+        "12 Reels editados, equivalente a 3 vídeos por semana.",
+        "Edição completa com: Tratamento de cor e áudio, efeitos visuais, legendas, brolls, sound effects."
+      ]
+    },
+    {
+      "nome": "Contrato Trimestral",
+      "valor": "3497",
+      "pgto": "à vista no pix ou boleto - ou em 3x no boleto",
+      "itens": [
+        "36 Reels editados, equivalente a 3 vídeos por semana.",
+        "Edição completa com: Tratamento de cor e áudio, efeitos visuais, legendas, brolls, sound effects",
+        "Bônus: 3 peças estáticas ou animadas de Design Gráfico para postagens de conteúdo, Banners de eventos ou 1 carrossel semanal."
+      ]
+    },
+    {
+      "nome": "Contrato Semestral",
+      "valor": "",
+      "pgto": "",
+      "itens": []
+    }
+  ]
+}
