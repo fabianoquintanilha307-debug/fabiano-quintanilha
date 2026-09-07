@@ -1,9 +1,9 @@
 {
   "cliente": "Erica Santiago",
-  "servico": "Edição de Vídeos para reels",
+  "servico": "Edição de Vídeos curtos",
   "tagline": "Conteúdo Micropigmentação  e carreira",
-  "data": "2026-08-09",
-  "validade": "2026-08-31",
+  "data": "",
+  "validade": "",
   "slug": "erica-santiago",
   "custos": [
     {
@@ -19,32 +19,16 @@
   ],
   "boxes": [
     {
-      "nome": "Projeto Avulso",
-      "valor": "1.437",
+      "nome": "Contrato Mensal",
+      "valor": "1980",
       "pgto": "à vista no pix ou boleto",
       "itens": [
-        "12 Reels editados, equivalente a 3 vídeos por semana.",
-        "Edição completa com: Tratamento de cor e áudio, efeitos visuais, legendas, brolls, sound effects.",
-        "Bônus: 100% off no valor das assinaturas de softwares, AI e Stock Assets"
-      ]
-    },
-    {
-      "nome": "Contrato Trimestral",
-      "valor": "3497",
-      "pgto": "à vista no pix ou boleto - ou em 3x no boleto",
-      "itens": [
-        "36 Reels editados, equivalente a 3 vídeos por semana.",
-        "Edição completa com: Tratamento de cor e áudio, efeitos visuais, legendas, brolls, sound effects",
-        "Bônus: 3 peças estáticas ou animadas de Design Gráfico para postagens de conteúdo, Banners de eventos ou 1 carrossel semanal.",
-        "Bônus: 100% off no valor das assinaturas de softwares, AI e Stock Assets"
-      ]
-    },
-    {
-      "nome": "Projeto Personalizado de acordo com o tamanho da sua demanda",
-      "valor": "",
-      "pgto": "",
-      "itens": [
-        "Projeto 100% personalizado desde a quantidade de entregáveis, prazos, formas de pagamento e valores de produção com desconto."
+        "15 vídeos curtos editados. (até 3 minutos)",
+        "Edição completa com: Tratamento de cor e áudio, efeitos visuais, legendas, b-rolls, sound effects.",
+        "Rodadas de revisões e suporte 24h",
+        "Bônus: Acesso irrestrito a materiais de Design Gráfico sem custo adicional (Incluí motion graphics de acordo com disponibilidade de entrega).",
+        "Bônus: 100% off no valor das assinaturas de softwares Adobe.",
+        "Bônus: Análise de dados e métricas de perfomance semanais dos vídeos entregues."
       ]
     }
   ]
