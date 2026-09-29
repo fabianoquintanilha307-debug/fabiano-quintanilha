@@ -25,7 +25,7 @@
   "boxes": [
     {
       "nome": "Contrato Mensal",
-      "valor": "1980",
+      "valor": "R$ 1980",
       "pgto": "à vista no pix ou boleto",
       "itens": [
         "15 vídeos curtos editados. (até 3 minutos)",
@@ -35,6 +35,18 @@
         "Bônus: 100% off no valor das assinaturas de softwares Adobe.",
         "Bônus: Análise de dados e métricas de perfomance semanais dos vídeos entregues."
       ]
+    },
+    {
+      "nome": "trimestras",
+      "valor": "R$ 5000",
+      "pgto": "",
+      "itens": []
+    },
+    {
+      "nome": "semestral",
+      "valor": "R$ 9997",
+      "pgto": "",
+      "itens": []
     }
   ]
 }
