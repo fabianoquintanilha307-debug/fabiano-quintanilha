@@ -2,19 +2,24 @@
   "cliente": "Erica Santiago",
   "servico": "Edição de Vídeos curtos",
   "tagline": "Conteúdo Micropigmentação  e carreira",
-  "data": "",
+  "data": "2026-08-29",
   "validade": "",
   "slug": "erica-santiago",
   "custos": [
     {
       "item": "Pacote Adobe",
       "desc": "Edição de vídeos",
-      "valor": "214"
+      "valor": "R$214"
     },
     {
       "item": "Maginific AI",
       "desc": "IA generativa de vídeos e imagem, banco de imagens, vídeos e audio",
-      "valor": "180"
+      "valor": "R$180"
+    },
+    {
+      "item": "Mão de Obra",
+      "desc": "",
+      "valor": "R$1800"
     }
   ],
   "boxes": [
